@@ -1,4 +1,23 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div style="display:flex; padding-left:200px; padding-bottom: 20px;">
+    <div style="font-size: 36px; font-weight: bold;">Blacksmith Life V</div>
+</div>
+
+<div>
+  <div style="padding-left:100px;">
+    <button [style.background-color]="setBackgroundColor('Game')" (click)="tabSelect('Game')">Game</button>
+    <button [style.background-color]="setBackgroundColor('Materials')" (click)="tabSelect('Materials')">Materials</button>
+    <button [style.background-color]="setBackgroundColor('Crafting')" (click)="tabSelect('Crafting')">Crafting</button>
+  </div>
+
+  <div style="border: 1px solid gray; border-radius: 5px; height: 80vh; width: 80vw; margin-left: 50px;">
+    <div *ngIf="selectedTab==='Game'">
+      <game-options></game-options>
+    </div>
+    <div *ngIf="selectedTab==='Materials'">
+      Materials
+    </div>
+    <div *ngIf="selectedTab==='Crafting'">
+      Crafting
+    </div>
+  </div>
+</div>

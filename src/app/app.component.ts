@@ -6,5 +6,16 @@ import { Component, VERSION } from '@angular/core';
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {
-  name = 'Angular ' + VERSION.major;
+  selectedTab: string = 'Game';
+  
+  tabSelect(value: string) {
+    this.selectedTab = value;
+  }
+
+  setBackgroundColor(value: string) {
+    if (this.selectedTab === value) {
+      return 'lightgray';
+    }
+  }
+
 }
