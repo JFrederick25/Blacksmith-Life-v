@@ -1,26 +1,4 @@
-.option {
-  font-size: 22px;
-  margin: 20px 0;
-  height: 40px;
-  border: 1px solid black;
-  border-radius: 5px;;
-  text-align: center;
-  line-height: 40px;
-  cursor: pointer;
-}
 
-.option:hover:not(.option.disabled) {
-  background-color: rgb(236, 236, 236);
-}
-
-.option:active:not(.option.disabled) {
-  background-color: gray;
-}
-
-.disabled {
-  cursor: not-allowed;
-  color: gray;
-}
 
 .selected {
   font-size: 25px;

@@ -1,12 +1,92 @@
 <div style="display: flex;">
   <div style="margin-left: 10px; margin-top: 10px; width: 25vw;">
-    <div>Material 1</div>
-    <div>Material 2</div>
-    <div>Material 3</div>
-    <div>Material 4</div>
-    
+    <div style="display: flex;">
+      <div
+        class="option"
+        [style.background-color]="setBackgroundColor('Material')"
+        (click)="selectOption('Material')"
+      >
+        Select Material
+      </div>
+      <div style="line-height: 6vh; font-size:18px;">: {{ selectedMat }}</div>
+    </div>
+
+    <div style="display: flex;">
+      <div
+        class="option"
+        [style.background-color]="setBackgroundColor('Shape')"
+        (click)="selectOption('Shape')"
+      >
+        Select Shape
+      </div>
+      <div style="line-height: 6vh; font-size:18px;">: {{ selectedShape }}</div>
+    </div>
+
+    <div style="display: flex;">
+      <div
+        class="option"
+        [style.background-color]="setBackgroundColor('Enchantment')"
+        (click)="selectOption('Enchantment')"
+      >
+        Select Enchantment
+      </div>
+      <div style="line-height: 6vh; font-size:18px;">: {{ selectedEnch }}</div>
+    </div>
+
+    <div style="display: flex;">
+      <div
+        class="option craft"
+        [style.background-color]="setBackgroundColor('Craft')"
+        [ngClass]="{ disabled: disabled }"
+        (click)="selectOption('Craft')"
+      >
+        Craft
+      </div>
+      <div style="line-height: 6vh; font-size:18px;"></div>
+    </div>
   </div>
-  <div style="margin-left: 10px; margin-top: 10px; width: 50vw; border: 1px solid gray; border-radius: 5px; height: 60vh;">
-    materials
+  <div class="viewport">
+    <div *ngIf="selectedMenu === 'Material'; then material"></div>
+    <div *ngIf="selectedMenu === 'Shape'; then shape"></div>
+    <div *ngIf="selectedMenu === 'Enchantment'; then enchantment"></div>
   </div>
 </div>
+
+<ng-template #material>
+  <div
+    *ngFor="let chunk of array_chunk(materials_list, 6)"
+    style="display: flex; margin-left: 4px;"
+  >
+    <div *ngFor="let mat of chunk">
+      <div class="option mat" (click)="clickedMaterial(mat)">
+        {{ mat }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #shape>
+  <div
+    *ngFor="let chunk of array_chunk(shapes_list, 6)"
+    style="display: flex; margin-left: 4px;"
+  >
+    <div *ngFor="let shape of chunk">
+      <div class="option mat" (click)="clickedShape(shape)">
+        {{ shape }}
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #enchantment>
+  <div
+    *ngFor="let chunk of array_chunk(enchantments_list, 6)"
+    style="display: flex; margin-left: 4px;"
+  >
+    <div *ngFor="let ench of chunk">
+      <div class="option mat" (click)="clickedEnchantment(ench)">
+        {{ ench }}
+      </div>
+    </div>
+  </div>
+</ng-template>

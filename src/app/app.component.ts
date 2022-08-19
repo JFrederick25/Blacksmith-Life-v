@@ -6,7 +6,7 @@ import { Component, VERSION } from '@angular/core';
   styleUrls: [ './app.component.css' ]
 })
 export class AppComponent  {
-  selectedTab: string = 'Game';
+  selectedTab: string = 'Materials';
   
   tabSelect(value: string) {
     this.selectedTab = value;
