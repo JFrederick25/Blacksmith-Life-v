@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { TimeInterval } from 'rxjs';
 import { CraftedItem } from '../../models/craftedItem';
+import { PlayerData } from '../../models/playerData';
 
 @Component({
   selector: 'materials',
@@ -8,6 +9,8 @@ import { CraftedItem } from '../../models/craftedItem';
   styleUrls: ['./materials.component.css'],
 })
 export class MaterialsComponent {
+  @Input() playerData: PlayerData;
+
   selectedMenu: string = 'Material';
 
   materials_list: string[] = [
@@ -88,6 +91,12 @@ export class MaterialsComponent {
       this.craftProgress += this.step;
       if (this.craftProgress >= this._maxProgress) {
         clearInterval(this.progressID);
+
+        this.playerData.craftedItems.push({
+          material: this.craftedItem.material,
+          shape: this.craftedItem.shape,
+          enchantment: this.craftedItem.enchantment
+        });
       }
     }, this.pInterval);
   }
@@ -96,14 +105,14 @@ export class MaterialsComponent {
     const par = this._maxProgress / this._maxBar;
     if (this.craftProgress / par > this._maxBar) {
       this.craftProgress = this._maxProgress;
-      return this._maxBar + 'px';
+      return this._maxBar + 'vw';
     }
-    return this.craftProgress / par + 'px';
+    return this.craftProgress / par + 'vw';
   }
 
   step = 1;
-  _maxBar = 700;
-  _maxProgress = 500000;
+  _maxBar = 48;
+  _maxProgress = 500;
   pInterval = 20;
 
   increaseStep() {
@@ -111,7 +120,7 @@ export class MaterialsComponent {
   }
 
   get maxBar() {
-    return this._maxBar + 'px';
+    return this._maxBar + 'vw';
   }
 
   get timeRemaining() {

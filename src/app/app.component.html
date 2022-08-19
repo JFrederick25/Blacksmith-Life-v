@@ -31,8 +31,10 @@
       <game-options></game-options>
     </div>
     <div *ngIf="selectedTab === 'Materials'">
-      <materials></materials>
+      <materials [playerData]="playerData"></materials>
     </div>
-    <div *ngIf="selectedTab === 'Crafting'">Crafting</div>
+    <div *ngIf="selectedTab === 'Crafting'">
+      <crafting [playerData]="playerData"></crafting>
+    </div>
   </div>
 </div>

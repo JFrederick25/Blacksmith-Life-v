@@ -40,7 +40,7 @@
         [ngClass]="{ disabled: disabled }"
         (click)="selectOption('Craft')"
       >
-        Craft
+        Complete
       </div>
       <div style="line-height: 6vh; font-size:18px;"></div>
     </div>
@@ -94,23 +94,30 @@
 
 <ng-template #craft>
   <div style="display: flex;">
-    {{craftedItem.material}}
-    {{craftedItem.shape}}
-    {{craftedItem.enchantment}}
+    <div class="option mat">
+      {{ craftedItem.material }}
+    </div>
+    <div class="option mat">
+      {{ craftedItem.shape }}
+    </div>
+    <div class="option mat">
+      {{ craftedItem.enchantment }}
+    </div>
   </div>
-  <div  [style.width]="maxBar" style="border: 1px solid black; margin-bottom: 4px;">
-    <div 
+  <div
+    [style.width]="maxBar"
+    style="border: 1px solid black; margin-bottom: 4px; margin-left: 10px;"
+  >
+    <div
       style="height: 30px; background-color: gold;"
       [style.width]="bar"
       [style.background-color]="color"
-      >
+    >
       <div style="margin-left: 8px; line-height: 30px;">
-        {{timeRemaining}}
+        {{ timeRemaining }}
       </div>
     </div>
   </div>
-
-  
 
   <button (click)="increaseStep()">more speed</button>
 </ng-template>
