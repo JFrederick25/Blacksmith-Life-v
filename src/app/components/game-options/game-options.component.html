@@ -1,6 +1,14 @@
 <div style="display: flex;">
   <div style="margin-left: 10px; margin-top: 10px; width: 25vw;">
-    <div class="option">Save Game</div>
-    <div class="option">Load Game</div>
+    <div class="option disabled">New Saved Game</div>
+    <div class="option" (click)="optionSelect('GAME SAVED')">Save Current Game</div>
+    <div class="option" (click)="optionSelect('GAME LOADED')">Load Selected Game</div>
+    <div class="option disabled">Delete Saved Game</div>
+    
+  </div>
+  <div style="margin-left: 10px; margin-top: 10px; width: 50vw; border: 1px solid gray; border-radius: 5px; height: 60vh;">
+    <div class="selected">
+      {{selectedOption}}
+    </div>
   </div>
 </div>

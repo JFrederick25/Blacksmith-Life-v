@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'game-options',
   templateUrl: './game-options.component.html',
   styleUrls: ['./game-options.component.css'],
 })
-export class GameOptionsComponent implements OnInit {
-  constructor() {}
+export class GameOptionsComponent {
+  selectedOption = '';
 
-  ngOnInit() {}
+  optionSelect(option: string) {
+    this.selectedOption = option;
+  }
 }
