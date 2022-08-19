@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TimeInterval } from 'rxjs';
+import { CraftedItem } from '../../models/craftedItem';
 
 @Component({
   selector: 'materials',
@@ -24,9 +26,13 @@ export class MaterialsComponent {
   selectedMat: string = '';
   selectedShape: string = '';
   selectedEnch: string = '';
+  craftedItem: CraftedItem = null;
+
+  craftProgress = 10;
+  progressID: number;
 
   get disabled(): boolean {
-    return this.selectedMat.length > 0;
+    return !this.selectedMat || !this.selectedShape;
   }
 
   array_chunk(arr: string[], len: number) {
@@ -42,8 +48,12 @@ export class MaterialsComponent {
   }
 
   selectOption(value: string) {
-    if (value !== 'Craft'){
+    if (value !== 'Craft') {
       this.selectedMenu = value;
+    }
+    if (value === 'Craft' && !this.disabled) {
+      this.selectedMenu = value;
+      this.buildCraftedItem();
     }
   }
 
@@ -63,5 +73,25 @@ export class MaterialsComponent {
 
   clickedEnchantment(val: string) {
     this.selectedEnch = val;
+  }
+
+  buildCraftedItem() {
+    this.craftedItem = {
+      material: this.selectedMat,
+      shape: this.selectedShape,
+      enchantment: this.selectedEnch,
+    };
+    this.craftProgress = 0;
+
+    this.progressID = setInterval(() => {
+      this.craftProgress += 1;
+      if (this.craftProgress === 500) {
+        clearInterval(this.progressID);
+      }
+    }, 20);
+  }
+
+  get bar() {
+    return this.craftProgress + 'px';
   }
 }

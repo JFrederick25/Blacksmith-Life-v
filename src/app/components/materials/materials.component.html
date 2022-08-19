@@ -49,6 +49,7 @@
     <div *ngIf="selectedMenu === 'Material'; then material"></div>
     <div *ngIf="selectedMenu === 'Shape'; then shape"></div>
     <div *ngIf="selectedMenu === 'Enchantment'; then enchantment"></div>
+    <div *ngIf="selectedMenu === 'Craft'; then craft"></div>
   </div>
 </div>
 
@@ -89,4 +90,14 @@
       </div>
     </div>
   </div>
+</ng-template>
+
+<ng-template #craft>
+  <div style="display: flex;">
+    {{craftedItem.material}}
+    {{craftedItem.shape}}
+    {{craftedItem.enchantment}}
+  </div>
+  <div [style.width]="bar" style="height: 30px; background-color: darkgray;"></div>
+  {{craftProgress}}
 </ng-template>
