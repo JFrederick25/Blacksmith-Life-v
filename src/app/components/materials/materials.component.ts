@@ -82,16 +82,50 @@ export class MaterialsComponent {
       enchantment: this.selectedEnch,
     };
     this.craftProgress = 0;
+    this.step = 1;
 
     this.progressID = setInterval(() => {
-      this.craftProgress += 1;
-      if (this.craftProgress === 500) {
+      this.craftProgress += this.step;
+      if (this.craftProgress >= this._maxProgress) {
         clearInterval(this.progressID);
       }
-    }, 20);
+    }, this.pInterval);
   }
 
   get bar() {
-    return this.craftProgress + 'px';
+    const par = this._maxProgress / this._maxBar;
+    if (this.craftProgress / par > this._maxBar) {
+      this.craftProgress = this._maxProgress;
+      return this._maxBar + 'px';
+    }
+    return this.craftProgress / par + 'px';
+  }
+
+  step = 1;
+  _maxBar = 700;
+  _maxProgress = 500000;
+  pInterval = 20;
+
+  increaseStep() {
+    this.step = Math.trunc(this.step * 1.6) + 1;
+  }
+
+  get maxBar() {
+    return this._maxBar + 'px';
+  }
+
+  get timeRemaining() {
+    const stepPerSec = (this.step * 1000) / this.pInterval;
+    const seconds = Math.round(
+      this._maxProgress / stepPerSec - this.craftProgress / stepPerSec
+    );
+    return new Date(seconds * 1000).toISOString().substring(11, 19);
+  }
+
+  get color() {
+    if (this.craftProgress < this._maxProgress) {
+      return 'gray';
+    }
+    return 'green';
   }
 }

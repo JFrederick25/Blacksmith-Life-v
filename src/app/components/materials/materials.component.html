@@ -98,6 +98,19 @@
     {{craftedItem.shape}}
     {{craftedItem.enchantment}}
   </div>
-  <div [style.width]="bar" style="height: 30px; background-color: darkgray;"></div>
-  {{craftProgress}}
+  <div  [style.width]="maxBar" style="border: 1px solid black; margin-bottom: 4px;">
+    <div 
+      style="height: 30px; background-color: gold;"
+      [style.width]="bar"
+      [style.background-color]="color"
+      >
+      <div style="margin-left: 8px; line-height: 30px;">
+        {{timeRemaining}}
+      </div>
+    </div>
+  </div>
+
+  
+
+  <button (click)="increaseStep()">more speed</button>
 </ng-template>
