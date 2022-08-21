@@ -12,18 +12,17 @@ export class MaterialsComponent {
 
   selectedMenu: string = 'Material';
 
-  materials_list: string[] = [
-    'wood',
-    'stone',
-    'copper',
-    'tin',
-    'silver',
-    'gold',
-  ];
+  get materials_list(): string[] {
+    return this.playerData.knownMaterials;
+  };
 
-  shapes_list: string[] = ['club', 'dagger'];
+  get shapes_list(): string[] {
+    return this.playerData.knownShapes;
+  }
 
-  enchantments_list: string[] = ['magic'];
+  get enchantments_list(): string[] {
+    return this.playerData.knownEnchantments;
+  }
 
   craftedItem: CraftedItem;
 

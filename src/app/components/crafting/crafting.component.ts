@@ -83,13 +83,16 @@ export class CraftingComponent {
     }
 
     const randScore = Math.trunc((Math.random() * 100) + 1);
-    this.rand = randScore;
 
     if (randScore < 20) {
       item.enhanceScore -= 1;
     } else {
       item.enhanceScore += 1;
     }
+  }
+
+  recoverItem(item: CraftedItem) {
+    
   }
 
 }

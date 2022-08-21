@@ -6,7 +6,7 @@
         [style.background-color]="setBackgroundColor('Improvement')"
         (click)="selectOption('Improvement')"
       >
-        Select Improvement
+        Select Improvement Technique
       </div>
 
       <div
@@ -14,15 +14,15 @@
         [style.background-color]="setBackgroundColor('Enhance')"
         (click)="selectOption('Enhance')"
       >
-        Select Enhance
+        Select Enhancement Technique
       </div>
 
       <div
         class="option technique"
-        [style.background-color]="setBackgroundColor('Technique3')"
-        (click)="selectOption('Technique3')"
+        [style.background-color]="setBackgroundColor('Recovery')"
+        (click)="selectOption('Recovery')"
       >
-        Select Technique 3
+        Select Recovery Technique
       </div>
     </div>
   </div>
@@ -31,17 +31,17 @@
       <div
         style="border-bottom: 1px solid black; padding: 12px 20px; width: 15.5vw;"
       >
-        Item To Craft:
+        Items To Craft:
       </div>
       <div
-        style="border-bottom: 1px solid black; padding: 12px 20px; width: 30vw;"
+        style="border-bottom: 1px solid black; padding: 12px 20px; width: 100%;"
       >
         Crafting Options:
       </div>
     </div>
     <div
       *ngFor="let item of playerData.craftedItems; let i = index"
-      style="display: flex;"
+      style="display: flex; min-height: 35vh;"
     >
       <div
         style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
@@ -58,13 +58,27 @@
         [ngTemplateOutlet]="enhance"
         [ngTemplateOutletContext]="{ item: item }"
       ></ng-container>
+      <ng-container
+        *ngIf="selectedMenu === 'Recovery'"
+        [ngTemplateOutlet]="recovery"
+        [ngTemplateOutletContext]="{ item: item }"
+      ></ng-container>
+
       <div
         class="option"
-        style="margin: 10px 0; width: 100px; font-size: 16px;"
+        style="margin: 10px 0 10px 10px; width: 100px; font-size: 16px;"
         (click)="reset(item)"
       >
         Reset
       </div>
+
+      <div class="option" style="margin: 10px; width: 100px; font-size: 16px;">
+        Finish
+      </div>
+    </div>
+
+    <div style="border-bottom: 1px solid black; padding: 12px 20px;">
+      Finished Items:
     </div>
   </div>
 </div>
@@ -95,6 +109,21 @@
   <div
     style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
   >
-    10% Failure Chance
+    20% Failure Chance
+  </div>
+</ng-template>
+
+<ng-template #recovery let-item="item">
+  <div
+    class="option"
+    style="margin: 10px 0; width: 100px; font-size: 16px;"
+    (click)="recoverItem(item)"
+  >
+    Recovery
+  </div>
+  <div
+    style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+  >
+    30% Failure Chance
   </div>
 </ng-template>
