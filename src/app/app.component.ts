@@ -7,7 +7,7 @@ import { PlayerData } from './models/playerData';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  selectedTab: string = 'Crafting';
+  selectedTab: string = 'Trading';
   playerData: PlayerData = new PlayerData();
 
   constructor() {
