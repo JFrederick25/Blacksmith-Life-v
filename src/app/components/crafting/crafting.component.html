@@ -1,31 +1,71 @@
 <div style="display: flex;">
   <div style="margin-left: 10px; margin-top: 10px; width: 25vw;">
     <div>
-      <div
-        class="option technique"
-        [style.background-color]="setBackgroundColor('Improvement')"
-        (click)="selectOption('Improvement')"
-      >
-        Select Improvement Technique
+      <div style="min-height:30vh;">
+        <div
+          *ngIf="knownTechnique('improve')"
+          class="option technique"
+          [style.background-color]="setBackgroundColor('Improvement')"
+          (click)="selectOption('Improvement')"
+        >
+          Select Improvement Technique
+        </div>
+
+        <div
+          *ngIf="knownTechnique('enhance')"
+          class="option technique"
+          [style.background-color]="setBackgroundColor('Enhance')"
+          (click)="selectOption('Enhance')"
+        >
+          Select Enhancement Technique
+        </div>
+
+        <div
+          *ngIf="knownTechnique('recover')"
+          class="option technique"
+          [style.background-color]="setBackgroundColor('Recovery')"
+          (click)="selectOption('Recovery')"
+        >
+          Select Recovery Technique
+        </div>
+
+        <div
+          *ngIf="knownTechnique('exotic')"
+          class="option technique"
+          [style.background-color]="setBackgroundColor('Exotic')"
+          (click)="selectOption('Exotic')"
+        >
+          Select Exotic Technique
+        </div>
+
+        <div
+          *ngIf="knownTechnique('ultimate')"
+          class="option technique"
+          [style.background-color]="setBackgroundColor('Ultimate')"
+          (click)="selectOption('Ultimate')"
+        >
+          Select Ultimate Technique
+        </div>
       </div>
 
-      <div
-        class="option technique"
-        [style.background-color]="setBackgroundColor('Enhance')"
-        (click)="selectOption('Enhance')"
-      >
-        Select Enhancement Technique
+      <div style="border-bottom: 1px solid black; padding: 12px 20px;">
+        Finished Items:
       </div>
-
       <div
-        class="option technique"
-        [style.background-color]="setBackgroundColor('Recovery')"
-        (click)="selectOption('Recovery')"
+        *ngIf="playerData.finishedItems.length === 0"
+        style="margin: 10px 0 0 16px;"
       >
-        Select Recovery Technique
+        (none)
+      </div>
+      <div
+        *ngFor="let fItem of playerData.finishedItems; let i = index"
+        style="margin: 10px 0 0 4px;"
+      >
+        {{ i + 1 }}: {{ fItem.name }} Value: {{ fItem.value }}
       </div>
     </div>
   </div>
+
   <div class="viewport">
     <div style="display: flex;">
       <div
@@ -40,8 +80,14 @@
       </div>
     </div>
     <div
+      *ngIf="playerData.craftedItems.length === 0"
+      style="margin: 10px 0 0 16px;"
+    >
+      (none)
+    </div>
+    <div
       *ngFor="let item of playerData.craftedItems; let i = index"
-      style="display: flex; min-height: 35vh;"
+      style="display: flex;"
     >
       <div
         style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
@@ -72,13 +118,13 @@
         Reset
       </div>
 
-      <div class="option" style="margin: 10px; width: 100px; font-size: 16px;">
+      <div
+        class="option"
+        style="margin: 10px; width: 100px; font-size: 16px;"
+        (click)="finishItem(item)"
+      >
         Finish
       </div>
-    </div>
-
-    <div style="border-bottom: 1px solid black; padding: 12px 20px;">
-      Finished Items:
     </div>
   </div>
 </div>

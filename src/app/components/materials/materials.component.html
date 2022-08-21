@@ -44,6 +44,9 @@
       </div>
       <div style="line-height: 6vh; font-size:18px;"></div>
     </div>
+    <div style="padding: 12px 20px;">
+      Items To Craft: {{playerData.craftedItems.length}}
+    </div>
   </div>
 
   <div class="viewport">
@@ -54,6 +57,9 @@
 </div>
 
 <ng-template #material>
+  <div style="margin: 10px; font-size: 26px; text-align: center; width: 49vw; border-bottom: 1px solid black;">
+    Select Material To Use
+  </div>
   <div
     *ngFor="let chunk of array_chunk(materials_list, 6)"
     style="display: flex; margin-left: 4px;"
@@ -67,6 +73,9 @@
 </ng-template>
 
 <ng-template #shape>
+  <div style="margin: 10px; font-size: 26px; text-align: center; width: 49vw; border-bottom: 1px solid black;">
+    Select Shape To Build
+  </div>
   <div
     *ngFor="let chunk of array_chunk(shapes_list, 6)"
     style="display: flex; margin-left: 4px;"
@@ -80,6 +89,9 @@
 </ng-template>
 
 <ng-template #enchantment>
+  <div style="margin: 10px; font-size: 26px; text-align: center; width: 49vw; border-bottom: 1px solid black;">
+    Select Enchantment To Cast
+  </div>
   <div
     *ngFor="let chunk of array_chunk(enchantments_list, 6)"
     style="display: flex; margin-left: 4px;"

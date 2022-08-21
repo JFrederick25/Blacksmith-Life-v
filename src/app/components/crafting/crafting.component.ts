@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CraftedItem } from '../../models/craftedItem';
 import { EnchantingWord } from '../../models/enchantingWord';
+import { FinishedItem } from '../../models/finishedItem';
 import { PlayerData } from '../../models/playerData';
 import {
   getEnchantingAdjective,
@@ -26,6 +27,10 @@ export class CraftingComponent {
 
   selectOption(value: string) {
     this.selectedMenu = value;
+  }
+
+  knownTechnique(tech: string): boolean {
+    return this.playerData.knownTechniques.some(t => t === tech);
   }
 
   formatDescription(item: CraftedItem): string {
@@ -93,6 +98,25 @@ export class CraftingComponent {
 
   recoverItem(item: CraftedItem) {
     
+  }
+
+  finishItem(item: CraftedItem) {
+    const finishedItem: FinishedItem = {
+      name: this.formatDescription(item),
+      value: 2 + item.enhanceScore + item.improveScore,
+      craftedItem: {
+        enchantment: item.enchantment,
+        material: item.material,
+        shape: item.shape,
+        status: item.status,
+        enhanceScore: item.enhanceScore,
+        improveScore: item.improveScore
+      },
+    }
+
+    this.playerData.finishedItems.push(finishedItem);
+    const ci = this.playerData.craftedItems.indexOf(item);
+    this.playerData.craftedItems.splice(ci, 1);
   }
 
 }
