@@ -38,18 +38,19 @@
         class="option craft"
         [style.background-color]="setBackgroundColor('Craft')"
         [ngClass]="{ disabled: disabled }"
-        (click)="selectOption('Craft')"
+        (click)="buildCraftedItem()"
       >
-        Start Building
+        Build
       </div>
       <div style="line-height: 6vh; font-size:18px;"></div>
     </div>
   </div>
+
   <div class="viewport">
     <div *ngIf="selectedMenu === 'Material'; then material"></div>
     <div *ngIf="selectedMenu === 'Shape'; then shape"></div>
     <div *ngIf="selectedMenu === 'Enchantment'; then enchantment"></div>
-    <div *ngIf="selectedMenu === 'Craft'; then craft"></div>
+    <!-- <div *ngIf="selectedMenu === 'Craft'; then craft"></div> -->
   </div>
 </div>
 
@@ -92,7 +93,7 @@
   </div>
 </ng-template>
 
-<ng-template #craft>
+<!-- <ng-template #craft>
   <div style="display: flex;">
     <div class="option mat">
       {{ craftedItem.material }}
@@ -120,4 +121,4 @@
   </div>
 
   <button (click)="increaseStep()">more speed</button>
-</ng-template>
+</ng-template> -->

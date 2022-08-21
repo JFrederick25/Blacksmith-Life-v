@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { TimeInterval } from 'rxjs';
 import { CraftedItem } from '../../models/craftedItem';
 import { PlayerData } from '../../models/playerData';
 
@@ -26,15 +25,13 @@ export class MaterialsComponent {
 
   enchantments_list: string[] = ['magic'];
 
+  craftedItem: CraftedItem;
+
   selectedMat: string = '';
   selectedShape: string = '';
   selectedEnch: string = '';
-  craftedItem: CraftedItem = null;
 
-  craftProgress = 10;
-  progressID: number;
-
-  get disabled(): boolean {
+  get disabled() {
     return !this.selectedMat || !this.selectedShape;
   }
 
@@ -51,13 +48,7 @@ export class MaterialsComponent {
   }
 
   selectOption(value: string) {
-    if (value !== 'Craft') {
-      this.selectedMenu = value;
-    }
-    if (value === 'Craft' && !this.disabled) {
-      this.selectedMenu = value;
-      this.buildCraftedItem();
-    }
+    this.selectedMenu = value;
   }
 
   setBackgroundColor(value: string) {
@@ -83,58 +74,14 @@ export class MaterialsComponent {
       material: this.selectedMat,
       shape: this.selectedShape,
       enchantment: this.selectedEnch,
+      improveScore: 0,
+      enhanceScore: 0,
+      status: ''
     };
-    this.craftProgress = 0;
-    this.step = 1;
+    this.playerData.craftedItems.push(this.craftedItem);
 
-    this.progressID = setInterval(() => {
-      this.craftProgress += this.step;
-      if (this.craftProgress >= this._maxProgress) {
-        clearInterval(this.progressID);
-
-        this.playerData.craftedItems.push({
-          material: this.craftedItem.material,
-          shape: this.craftedItem.shape,
-          enchantment: this.craftedItem.enchantment
-        });
-      }
-    }, this.pInterval);
-  }
-
-  get bar() {
-    const par = this._maxProgress / this._maxBar;
-    if (this.craftProgress / par > this._maxBar) {
-      this.craftProgress = this._maxProgress;
-      return this._maxBar + 'vw';
-    }
-    return this.craftProgress / par + 'vw';
-  }
-
-  step = 1;
-  _maxBar = 48;
-  _maxProgress = 500;
-  pInterval = 20;
-
-  increaseStep() {
-    this.step = Math.trunc(this.step * 1.6) + 1;
-  }
-
-  get maxBar() {
-    return this._maxBar + 'vw';
-  }
-
-  get timeRemaining() {
-    const stepPerSec = (this.step * 1000) / this.pInterval;
-    const seconds = Math.round(
-      this._maxProgress / stepPerSec - this.craftProgress / stepPerSec
-    );
-    return new Date(seconds * 1000).toISOString().substring(11, 19);
-  }
-
-  get color() {
-    if (this.craftProgress < this._maxProgress) {
-      return 'gray';
-    }
-    return 'green';
+    this.selectedMat = null;
+    this.selectedShape = null;
+    this.selectedEnch = null;
   }
 }

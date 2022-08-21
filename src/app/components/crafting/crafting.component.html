@@ -1,3 +1,100 @@
-<div *ngFor="let craftedItem of playerData.craftedItems">
-  {{ craftedItem.material }}
+<div style="display: flex;">
+  <div style="margin-left: 10px; margin-top: 10px; width: 25vw;">
+    <div>
+      <div
+        class="option technique"
+        [style.background-color]="setBackgroundColor('Improvement')"
+        (click)="selectOption('Improvement')"
+      >
+        Select Improvement
+      </div>
+
+      <div
+        class="option technique"
+        [style.background-color]="setBackgroundColor('Enhance')"
+        (click)="selectOption('Enhance')"
+      >
+        Select Enhance
+      </div>
+
+      <div
+        class="option technique"
+        [style.background-color]="setBackgroundColor('Technique3')"
+        (click)="selectOption('Technique3')"
+      >
+        Select Technique 3
+      </div>
+    </div>
+  </div>
+  <div class="viewport">
+    <div style="display: flex;">
+      <div
+        style="border-bottom: 1px solid black; padding: 12px 20px; width: 15.5vw;"
+      >
+        Item To Craft:
+      </div>
+      <div
+        style="border-bottom: 1px solid black; padding: 12px 20px; width: 30vw;"
+      >
+        Crafting Options:
+      </div>
+    </div>
+    <div
+      *ngFor="let item of playerData.craftedItems; let i = index"
+      style="display: flex;"
+    >
+      <div
+        style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+      >
+        {{ i + 1 }}: {{ formatDescription(item) }}
+      </div>
+      <ng-container
+        *ngIf="selectedMenu === 'Improvement'"
+        [ngTemplateOutlet]="improve"
+        [ngTemplateOutletContext]="{ item: item }"
+      ></ng-container>
+      <ng-container
+        *ngIf="selectedMenu === 'Enhance'"
+        [ngTemplateOutlet]="enhance"
+        [ngTemplateOutletContext]="{ item: item }"
+      ></ng-container>
+      <div
+        class="option"
+        style="margin: 10px 0; width: 100px; font-size: 16px;"
+        (click)="reset(item)"
+      >
+        Reset
+      </div>
+    </div>
+  </div>
 </div>
+
+<ng-template #improve let-item="item">
+  <div
+    class="option"
+    style="margin: 10px 0; width: 100px; font-size: 16px;"
+    (click)="improveItem(item)"
+  >
+    Improve
+  </div>
+  <div
+    style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+  >
+    10% Break Chance
+  </div>
+</ng-template>
+
+<ng-template #enhance let-item="item">
+  <div
+    class="option"
+    style="margin: 10px 0; width: 100px; font-size: 16px;"
+    (click)="enhanceItem(item)"
+  >
+    Enhance
+  </div>
+  <div
+    style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+  >
+    10% Failure Chance
+  </div>
+</ng-template>

@@ -22,6 +22,24 @@
     >
       Crafting
     </button>
+    <button
+      [style.background-color]="setBackgroundColor('Trading')"
+      (click)="tabSelect('Trading')"
+    >
+      Trading
+    </button>
+    <button
+      [style.background-color]="setBackgroundColor('Training')"
+      (click)="tabSelect('Training')"
+    >
+      Training
+    </button>
+    <button
+      [style.background-color]="setBackgroundColor('Enchanting')"
+      (click)="tabSelect('Enchanting')"
+    >
+      Enchanting
+    </button>
   </div>
 
   <div
@@ -35,6 +53,15 @@
     </div>
     <div *ngIf="selectedTab === 'Crafting'">
       <crafting [playerData]="playerData"></crafting>
+    </div>
+    <div *ngIf="selectedTab === 'Trading'">
+      Trading
+    </div>
+    <div *ngIf="selectedTab === 'Training'">
+      Training
+    </div>
+    <div *ngIf="selectedTab === 'Enchanting'">
+      Enchanting
     </div>
   </div>
 </div>
