@@ -15,7 +15,7 @@ export class PlayerData {
     this.craftedItems = [];
     this.finishedItems = [];
 
-    this.knownMaterials = ['wood', 'stone', 'copper', 'tin', 'silver', 'gold'];
+    this.knownMaterials = ['wood', 'stone', 'copper', 'tin', 'silver', 'gold', 'wood', 'stone', 'copper', 'tin', 'silver', 'gold', 'wood', 'stone', 'copper', 'tin', 'silver', 'gold'];
 
     this.knownShapes = ['club', 'dagger'];
 
