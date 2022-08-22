@@ -3,8 +3,18 @@
     <ng-container [ngTemplateOutlet]="store"></ng-container>
   </div>
   <div style="margin: 25vh 4vw 0 4vw;">
-    <div class="option" style="margin-left: 10px; font-size: 16px; padding: 0 10px;"> Trade </div>
-    <div class="option" style="margin-left: 10px; font-size: 16px; padding: 0 10px;"> Sell </div>
+    <div
+      class="option"
+      style="margin-left: 10px; font-size: 16px; padding: 0 10px;"
+    >
+      Trade
+    </div>
+    <div
+      class="option"
+      style="margin-left: 10px; font-size: 16px; padding: 0 10px;"
+    >
+      Sell
+    </div>
   </div>
   <div class="viewport" style="width: 33vw;">
     <ng-container [ngTemplateOutlet]="vendor"></ng-container>
@@ -12,12 +22,45 @@
 </div>
 
 <ng-template #store>
-  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Your Store</div>
-  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Your Items For Sale</div>
-  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Your Materials</div>
-  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Known Shapes</div>
+  <div
+    style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;"
+  >
+    Your Store
+  </div>
+  <div>
+    <div style="font-size: 22px; width: 33vw; border-bottom: 1px solid black;">
+      <span style="margin-left: 10px;">Your Items For Sale</span>
+    </div>
+    <div
+      *ngFor="let item of playerData.finishedItems"
+      style="margin-left: 10px;"
+    >
+      &#x2022; {{ item.name }}
+    </div>
+  </div>
+  <div>
+    <div style="font-size: 22px; width: 33vw; border-bottom: 1px solid black;">
+      <span style="margin-left: 10px;">Your Materials</span>
+    </div>
+
+    <div
+      *ngFor="let mat of playerData.knownMaterials"
+      style="margin-left: 10px;"
+    >
+      &#x2022; {{ mat }}
+    </div>
+  </div>
+  <div
+    style="margin: 10px 0; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
+  >
+    Known Shapes
+  </div>
 </ng-template>
 
 <ng-template #vendor>
-  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Available Vendors</div>
+  <div
+    style="margin: 10px 0; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
+  >
+    Available Vendors
+  </div>
 </ng-template>

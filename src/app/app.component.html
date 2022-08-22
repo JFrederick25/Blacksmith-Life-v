@@ -55,7 +55,7 @@
       <crafting [playerData]="playerData"></crafting>
     </div>
     <div *ngIf="selectedTab === 'Trading'">
-      <trading></trading>
+      <trading [playerData]="playerData"></trading>
     </div>
     <div *ngIf="selectedTab === 'Training'">
       Training: in crafting techniques and styles
