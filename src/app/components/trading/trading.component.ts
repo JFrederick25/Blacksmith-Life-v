@@ -14,4 +14,12 @@ export class TradingComponent implements OnInit {
   ngOnInit() {
   }
 
+  alternateColor(ind: number): string {
+    if (ind % 2 === 1) {
+      return 'lightgray';
+    } else {
+      return 'white';
+    }
+  }
+
 }

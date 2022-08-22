@@ -22,38 +22,59 @@
 </div>
 
 <ng-template #store>
+  <ng-container [ngTemplateOutlet]="yourStore"></ng-container>
+  <ng-container [ngTemplateOutlet]="yourMaterials"></ng-container>
+  <ng-container [ngTemplateOutlet]="yourShapes"></ng-container>
+</ng-template>
+
+<ng-template #yourStore>
   <div
-    style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;"
+  style="margin: 15px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;"
+>
+  Your Store
+</div>
+<div>
+  <div style="font-size: 22px; width: 33vw; border-bottom: 1px solid black;">
+    <span style="margin-left: 10px;">Your Items For Sale</span>
+  </div>
+  <div
+    *ngFor="let item of playerData.finishedItems; let i = index;"
+    style="margin-left: 10px;"
+    [style.background-color]="alternateColor(i)"
   >
-    Your Store
+    &#x2022; {{ item.name }}
   </div>
+</div>
+</ng-template>
+
+<ng-template #yourMaterials>
   <div>
-    <div style="font-size: 22px; width: 33vw; border-bottom: 1px solid black;">
-      <span style="margin-left: 10px;">Your Items For Sale</span>
-    </div>
-    <div
-      *ngFor="let item of playerData.finishedItems"
-      style="margin-left: 10px;"
-    >
-      &#x2022; {{ item.name }}
-    </div>
-  </div>
-  <div>
-    <div style="font-size: 22px; width: 33vw; border-bottom: 1px solid black;">
+    <div style="margin: 15px 0; font-size: 22px; width: 33vw; border-bottom: 1px solid black;">
       <span style="margin-left: 10px;">Your Materials</span>
     </div>
 
     <div
-      *ngFor="let mat of playerData.knownMaterials"
+      *ngFor="let mat of playerData.knownMaterials; let i = index;"
       style="margin-left: 10px;"
+      [style.background-color]="alternateColor(i)"
     >
       &#x2022; {{ mat }}
     </div>
   </div>
-  <div
-    style="margin: 10px 0; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
-  >
-    Known Shapes
+</ng-template>
+
+<ng-template #yourShapes>
+  <div>
+    <div style="margin: 15px 0;font-size: 22px; width: 33vw; border-bottom: 1px solid black;">
+      <span style="margin-left: 10px;">Known Shapes</span>
+    </div>
+    <div
+      *ngFor="let shape of playerData.knownShapes; let i = index;"
+      style="margin-left: 10px;"
+      [style.background-color]="alternateColor(i)"
+    >
+      &#x2022; {{ shape }}
+    </div>
   </div>
 </ng-template>
 
