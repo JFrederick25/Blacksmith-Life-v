@@ -1,8 +1,23 @@
 <div style="display: flex;">
-  <div class="viewport" style="width: 33vw;">Your Store: </div>
+  <div class="viewport" style="width: 33vw;">
+    <ng-container [ngTemplateOutlet]="store"></ng-container>
+  </div>
   <div style="margin: 25vh 4vw 0 4vw;">
     <div class="option" style="margin-left: 10px; font-size: 16px; padding: 0 10px;"> Trade </div>
     <div class="option" style="margin-left: 10px; font-size: 16px; padding: 0 10px;"> Sell </div>
   </div>
-  <div class="viewport" style="width: 33vw;">Vendors: </div>
+  <div class="viewport" style="width: 33vw;">
+    <ng-container [ngTemplateOutlet]="vendor"></ng-container>
+  </div>
 </div>
+
+<ng-template #store>
+  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Your Store</div>
+  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Your Items For Sale</div>
+  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Your Materials</div>
+  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Known Shapes</div>
+</ng-template>
+
+<ng-template #vendor>
+  <div style="margin: 10px 0; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;">Available Vendors</div>
+</ng-template>
