@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CraftedItem } from '../../models/craftedItem';
+import { Material } from '../../models/material';
 import { PlayerData } from '../../models/playerData';
 
 @Component({
@@ -12,9 +13,12 @@ export class MaterialsComponent {
 
   selectedMenu: string = 'Material';
 
-  get materials_list(): string[] {
-    return this.playerData.knownMaterials;
-  };
+  get materials_list(): Material[] {
+    return this.playerData.knownMaterials.map((m) => ({
+      name: m,
+      count: this.playerData.knownMaterialQuantity.get(m),
+    }));
+  }
 
   get shapes_list(): string[] {
     return this.playerData.knownShapes;
@@ -31,10 +35,11 @@ export class MaterialsComponent {
   selectedEnch: string = '';
 
   get disabled() {
-    return !this.selectedMat || !this.selectedShape;
+    const hasEnoughMaterial = this.selectedMat ? this.playerData.knownMaterialQuantity.get(this.selectedMat) < 0 : true;
+    return !this.selectedMat || !this.selectedShape || hasEnoughMaterial;
   }
 
-  array_chunk(arr: string[], len: number) {
+  array_chunk(arr: string[] | Material[], len: number) {
     const chunks = [];
     let i: number = 0;
     const n: number = arr.length;
@@ -56,8 +61,8 @@ export class MaterialsComponent {
     }
   }
 
-  clickedMaterial(val: string) {
-    this.selectedMat = val;
+  clickedMaterial(val: { name: string; count: number }) {
+    this.selectedMat = val.name;
   }
 
   clickedShape(val: string) {
@@ -75,7 +80,7 @@ export class MaterialsComponent {
       enchantment: this.selectedEnch,
       improveScore: 0,
       enhanceScore: 0,
-      status: ''
+      status: '',
     };
     this.playerData.craftedItems.push(this.craftedItem);
 

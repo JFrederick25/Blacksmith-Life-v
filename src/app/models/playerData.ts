@@ -6,6 +6,7 @@ export class PlayerData {
   finishedItems: FinishedItem[];
 
   knownMaterials: string[];
+  knownMaterialQuantity: Map<string, number>;
   knownShapes: string[];
   knownEnchantments: string[];
 
@@ -15,7 +16,12 @@ export class PlayerData {
     this.craftedItems = [];
     this.finishedItems = [];
 
-    this.knownMaterials = ['wood', 'stone', 'copper', 'tin', 'silver', 'gold', 'wood', 'stone', 'copper', 'tin', 'silver', 'gold', 'wood', 'stone', 'copper', 'tin', 'silver', 'gold'];
+    this.knownMaterials = ['wood', 'stone', 'copper', 'tin', 'silver', 'gold'];
+    this.knownMaterialQuantity = new Map();
+
+    for (const mat of this.knownMaterials) {
+      this.knownMaterialQuantity.set(mat, 3);
+    }
 
     this.knownShapes = ['club', 'dagger'];
 

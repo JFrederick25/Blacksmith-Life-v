@@ -66,7 +66,7 @@
   >
     <div *ngFor="let mat of chunk">
       <div class="option mat" (click)="clickedMaterial(mat)">
-        {{ mat }}
+        {{ mat.name }} ({{mat.count}})
       </div>
     </div>
   </div>
