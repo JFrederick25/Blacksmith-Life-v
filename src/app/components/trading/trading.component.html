@@ -2,18 +2,21 @@
   <div class="viewport" style="width: 33vw;">
     <ng-container [ngTemplateOutlet]="store"></ng-container>
   </div>
-  <div style="margin: 25vh 4vw 0 4vw; width: 4vw;">
+  <div style="margin: 25vh 1vw 0 1vw; width: 10vw;">
     <div
       class="option"
       style="margin-left: 10px; font-size: 16px; padding: 0 10px;"
     >
-      Buy
+      Trade
     </div>
-    <div
-      class="option"
-      style="margin-left: 10px; font-size: 16px; padding: 0 10px;"
-    >
-      Sell
+    <div style="font-size: 16px; margin-left: 10px; margin-top: 8px;">
+      Your total:
+    </div>
+    <div style="font-size: 16px; margin-left: 10px; margin-top: 8px;">
+      Vender total:
+    </div>
+    <div style="font-size: 16px; margin-left: 10px; margin-top: 8px;">
+      Difference:
     </div>
   </div>
   <div class="viewport" style="width: 33vw;">
@@ -54,7 +57,7 @@
       [style.background-color]="alternateColor(i)"
     >
       <div style="height: 24px; line-height: 24px; width: 15vw;">
-        &#x2022; {{ item.name }} (${{ item.value }})
+        {{ item.name }} (${{ item.value }})
       </div>
       <div class="select">select</div>
     </div>
@@ -75,7 +78,7 @@
       [style.background-color]="alternateColor(i)"
     >
       <div style="height: 24px; line-height: 24px; width: 15vw;">
-        &#x2022; {{ mat }}
+        {{ mat }}
       </div>
       <div class="select">select</div>
     </div>
