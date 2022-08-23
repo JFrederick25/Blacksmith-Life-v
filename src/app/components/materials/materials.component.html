@@ -65,7 +65,7 @@
     style="display: flex; margin-left: 4px;"
   >
     <div *ngFor="let mat of chunk">
-      <div class="option mat" (click)="clickedMaterial(mat)">
+      <div class="option mat" [ngClass]="{ disabled: disabledMat(mat) }" (click)="clickedMaterial(mat)">
         {{ mat.name }} ({{mat.count}})
       </div>
     </div>

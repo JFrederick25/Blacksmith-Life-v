@@ -35,8 +35,14 @@ export class MaterialsComponent {
   selectedEnch: string = '';
 
   get disabled() {
-    const hasEnoughMaterial = this.selectedMat ? this.playerData.knownMaterialQuantity.get(this.selectedMat) < 0 : true;
+    const hasEnoughMaterial = this.selectedMat
+      ? this.playerData.knownMaterialQuantity.get(this.selectedMat) <= 0
+      : true;
     return !this.selectedMat || !this.selectedShape || hasEnoughMaterial;
+  }
+
+  disabledMat(mat: Material) {
+    return mat.count <= 0;
   }
 
   array_chunk(arr: string[] | Material[], len: number) {
@@ -61,7 +67,11 @@ export class MaterialsComponent {
     }
   }
 
-  clickedMaterial(val: { name: string; count: number }) {
+  clickedMaterial(val: Material) {
+    if (this.disabledMat(val)) {
+      return;
+    }
+
     this.selectedMat = val.name;
   }
 
@@ -74,6 +84,15 @@ export class MaterialsComponent {
   }
 
   buildCraftedItem() {
+    if (this.disabled) {
+      return;
+    }
+
+    this.playerData.knownMaterialQuantity.set(
+      this.selectedMat,
+      this.playerData.knownMaterialQuantity.get(this.selectedMat) - 1
+    );
+
     this.craftedItem = {
       material: this.selectedMat,
       shape: this.selectedShape,
