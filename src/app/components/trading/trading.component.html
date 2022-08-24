@@ -3,7 +3,14 @@
     <ng-container [ngTemplateOutlet]="store"></ng-container>
   </div>
 
-  <div style="margin: 25vh 1vw 0 1vw; width: 10vw;"></div>
+  <div style="margin: 25vh 1vw 0 1vw; width: 10vw;">
+    <div>Sell List</div>
+    <div>Buy List</div>
+    <div>Haggle opportunity</div>
+    <div>Final Cost</div>
+
+    need map component and single vendor component
+  </div>
 
   <div class="viewport" style="width: 33vw;">
     <ng-container [ngTemplateOutlet]="vendor"></ng-container>
@@ -70,9 +77,7 @@
     >
       {{ mat }}
     </div>
-    <div style="width: 10vw;">
-      {{ getMatCount(mat, vendor) }}
-    </div>
+    <div style="width: 10vw;">({{ getMatCount(mat, vendor) }})</div>
     <div style="width: 10vw;">
       {{ getMatCost(mat, vendor) }}
     </div>
@@ -134,10 +139,11 @@
       [style.background-color]="alternateColor(i)"
     >
       <div
-        style="height: 24px; line-height: 24px; width: 15vw; padding-left: 5px;"
+        style="height: 24px; line-height: 24px; width: 5vw; padding-left: 5px;"
       >
         {{ mat }}
       </div>
+      <div style="width: 10vw;">({{ getPlayerMatCount(mat) }})</div>
       <div class="select">Sell</div>
     </div>
   </div>

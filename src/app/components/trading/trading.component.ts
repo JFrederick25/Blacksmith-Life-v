@@ -23,6 +23,10 @@ export class TradingComponent implements OnInit {
     }
   }
 
+  getPlayerMatCount(mat: string): number {
+    return this.playerData.knownMaterialQuantity.get(mat);
+  }
+
   get vendorList(): Vendor[] {
     return this.playerData.knownVendors;
   }
