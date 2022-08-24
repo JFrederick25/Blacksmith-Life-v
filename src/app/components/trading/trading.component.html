@@ -8,14 +8,43 @@
     <div>Buy List</div>
     <div>Haggle opportunity</div>
     <div>Final Cost</div>
-
-    need map component and single vendor component
   </div>
 
   <div class="viewport" style="width: 33vw;">
-    <ng-container [ngTemplateOutlet]="vendor"></ng-container>
+    <ng-container
+      *ngIf="!selectedLocation"
+      [ngTemplateOutlet]="map"
+    ></ng-container>
+    <ng-container
+      *ngIf="selectedLocation"
+      [ngTemplateOutlet]="vendor"
+    ></ng-container>
   </div>
 </div>
+
+<ng-template #map>
+  <div>
+    <div
+      style="margin-top: 15px; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;"
+    >
+      Map
+    </div>
+    <div
+      *ngFor="let locations of array_chunk(getLocations(), 6)"
+      style="display: flex; margin-left: 4px;"
+    >
+      <div *ngFor="let loc of locations">
+        <div
+          class="option"
+          style="margin: 2px; padding: 2px;"
+          (click)="selectLocation(loc)"
+        >
+          {{ loc }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 
 <ng-template #store>
   <div
@@ -30,37 +59,43 @@
 
 <ng-template #vendor>
   <div
+    style="display: flex; height=36px; font-size: 22px; background-color: lightgray;"
+  >
+    <div class="backArrow" (click)="selectedLocation = null">&#x21E6;</div>
+    <div style="line-height: 30px; margin-left: 11vw;">
+      {{ selectedLocation }}
+    </div>
+  </div>
+  <div
     style="margin-top: 15px; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;"
   >
-    Available Vendors
+    {{ selectedVendor.name }}
   </div>
-  <div *ngFor="let vendor of vendorList">
-    <div
-      style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
-    >
-      <div style="display: flex;">
-        <div style="margin-left: 3.4vw; width: 9.6vw;">{{ vendor.name }}</div>
-        <div style="width: 9.6vw; font-size: 16px; line-height: 26px;">
-          Count
-        </div>
-        <div style="width: 10vw;  font-size: 16px; line-height: 26px;">
-          Cost
-        </div>
-      </div>
-    </div>
-    <div>
-      {{ vendor.name }} is a basic vendor with a local reputation and purveyor
-      of modest materials
-    </div>
-    <ng-container
-      [ngTemplateOutlet]="material"
-      [ngTemplateOutletContext]="{ vendor: vendor }"
-    ></ng-container>
-    <ng-container
-      [ngTemplateOutlet]="shape"
-      [ngTemplateOutletContext]="{ vendor: vendor }"
-    ></ng-container>
+  <div>
+    {{ selectedVendor.name }} is a basic vendor with a local reputation and
+    purveyor of modest materials
   </div>
+  <div
+    style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
+  >
+    <div style="display: flex;">
+      <div style="margin-left: 3.4vw; width: 9.6vw;"></div>
+      <div style="width: 9.6vw; font-size: 16px; line-height: 26px;">Count</div>
+      <div style="width: 10vw;  font-size: 16px; line-height: 26px;">Cost</div>
+    </div>
+  </div>
+
+  <ng-container
+    [ngTemplateOutlet]="material"
+    [ngTemplateOutletContext]="{ vendor: selectedVendor }"
+  ></ng-container>
+  <div
+    style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
+  ></div>
+  <ng-container
+    [ngTemplateOutlet]="shape"
+    [ngTemplateOutletContext]="{ vendor: selectedVendor }"
+  ></ng-container>
 </ng-template>
 
 <!-- * Vendor Templates * !-->
@@ -71,7 +106,7 @@
     [style.background-color]="alternateColor(i)"
     style="display: flex; margin: 5px;"
   >
-    <div class="select">Buy</div>
+    <div class="select" (click)="buyFromVendor(mat)">Buy</div>
     <div
       style=" padding-left: 10px; width: 10vw;  height: 24px; line-height: 24px; "
     >

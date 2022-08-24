@@ -19,7 +19,7 @@ export class PlayerData {
     this.craftedItems = [];
     this.finishedItems = [];
 
-    this.knownMaterials = ['wood', 'stone', 'copper', 'tin', 'silver', 'gold'];
+    this.knownMaterials = ['wood', 'stone',]; // 'copper', 'tin', 'silver', 'gold'];
     this.knownMaterialQuantity = new Map();
 
     for (const mat of this.knownMaterials) {
@@ -38,6 +38,7 @@ export class PlayerData {
   getInitialVendors(): Vendor[] {
     const ven_1: Vendor = {
       name: 'Mark',
+      location: 'Terrace Street',
       materials_List: ['stone', 'copper'],
       material_cost: new Map([['stone', 1], ['copper', 3]]),
       material_count: new Map([ ['stone', 8], ['copper', 10] ]),
@@ -47,6 +48,7 @@ export class PlayerData {
 
     const ven_2: Vendor = {
       name: 'David',
+      location: 'Town Square',
       materials_List: ['copper', 'silver', 'gold'],
       material_cost: new Map([ ['copper', 3], ['silver', 9], ['gold', 90] ]),
       material_count: new Map([ ['copper', 16], ['silver', 8], ['gold', 4] ]),
