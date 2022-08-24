@@ -2,23 +2,9 @@
   <div class="viewport" style="width: 33vw;">
     <ng-container [ngTemplateOutlet]="store"></ng-container>
   </div>
-  <div style="margin: 25vh 1vw 0 1vw; width: 10vw;">
-    <div
-      class="option"
-      style="margin-left: 10px; font-size: 16px; padding: 0 10px;"
-    >
-      Trade
-    </div>
-    <div style="font-size: 16px; margin-left: 10px; margin-top: 8px;">
-      Your total:
-    </div>
-    <div style="font-size: 16px; margin-left: 10px; margin-top: 8px;">
-      Vender total:
-    </div>
-    <div style="font-size: 16px; margin-left: 10px; margin-top: 8px;">
-      Difference:
-    </div>
-  </div>
+
+  <div style="margin: 25vh 1vw 0 1vw; width: 10vw;"></div>
+
   <div class="viewport" style="width: 33vw;">
     <ng-container [ngTemplateOutlet]="vendor"></ng-container>
   </div>
@@ -40,6 +26,76 @@
     style="margin-top: 15px; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;"
   >
     Available Vendors
+  </div>
+  <div *ngFor="let vendor of vendorList">
+    <div
+      style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
+    >
+      <div style="display: flex;">
+        <div style="margin-left: 3.4vw; width: 9.6vw;">{{ vendor.name }}</div>
+        <div style="width: 9.6vw; font-size: 16px; line-height: 26px;">
+          Count
+        </div>
+        <div style="width: 10vw;  font-size: 16px; line-height: 26px;">
+          Cost
+        </div>
+      </div>
+    </div>
+    <div>
+      {{ vendor.name }} is a basic vendor with a local reputation and purveyor
+      of modest materials
+    </div>
+    <ng-container
+      [ngTemplateOutlet]="material"
+      [ngTemplateOutletContext]="{ vendor: vendor }"
+    ></ng-container>
+    <ng-container
+      [ngTemplateOutlet]="shape"
+      [ngTemplateOutletContext]="{ vendor: vendor }"
+    ></ng-container>
+  </div>
+</ng-template>
+
+<!-- * Vendor Templates * !-->
+<ng-template #material let-vendor="vendor">
+  Materials:
+  <div
+    *ngFor="let mat of vendor.materials_List; let i = index"
+    [style.background-color]="alternateColor(i)"
+    style="display: flex; margin: 5px;"
+  >
+    <div class="select">Buy</div>
+    <div
+      style=" padding-left: 10px; width: 10vw;  height: 24px; line-height: 24px; "
+    >
+      {{ mat }}
+    </div>
+    <div style="width: 10vw;">
+      {{ getMatCount(mat, vendor) }}
+    </div>
+    <div style="width: 10vw;">
+      {{ getMatCost(mat, vendor) }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #shape let-vendor="vendor">
+  Shapes:
+  <div
+    *ngFor="let shape of vendor.shape_list; let i = index"
+    [style.background-color]="alternateColor(i)"
+    style="display: flex; margin: 5px;"
+  >
+    <div class="select">Buy</div>
+    <div
+      style=" padding-left: 10px; width: 10vw;  height: 24px; line-height: 24px; "
+    >
+      {{ shape }}
+    </div>
+    <div style="width: 10vw;"></div>
+    <div style="width: 10vw;">
+      {{ getShapeCost(shape, vendor) }}
+    </div>
   </div>
 </ng-template>
 
@@ -77,7 +133,9 @@
       style="display: flex; overflow-y: auto; margin: 5px;"
       [style.background-color]="alternateColor(i)"
     >
-      <div style="height: 24px; line-height: 24px; width: 15vw;">
+      <div
+        style="height: 24px; line-height: 24px; width: 15vw; padding-left: 5px;"
+      >
         {{ mat }}
       </div>
       <div class="select">Sell</div>

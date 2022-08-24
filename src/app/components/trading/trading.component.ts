@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PlayerData } from '../../models/playerData';
+import { Vendor } from '../../models/vendor';
 
 @Component({
   selector: 'trading',
@@ -20,6 +21,22 @@ export class TradingComponent implements OnInit {
     } else {
       return 'white';
     }
+  }
+
+  get vendorList(): Vendor[] {
+    return this.playerData.knownVendors;
+  }
+
+  getMatCount(material: string, vendor: Vendor): number {
+    return vendor.material_count.get(material);
+  }
+
+  getMatCost(material: string, vendor: Vendor): number {
+    return vendor.material_cost.get(material);
+  }
+
+  getShapeCost(shape: string, vendor: Vendor): number {
+    return vendor.shape_cost.get(shape);
   }
 
 }
