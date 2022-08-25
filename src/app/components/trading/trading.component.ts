@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FinishedItem } from '../../models/finishedItem';
 import { PlayerData } from '../../models/playerData';
 import { Vendor } from '../../models/vendor';
 
@@ -11,6 +12,10 @@ export class TradingComponent {
   @Input() playerData: PlayerData;
 
   selectedLocation: string = null;
+
+  sellList: (string | FinishedItem)[] = [];
+  buyList: string[] = [];
+  finalTotal: number;
 
   getLocations(): string[] {
     return this.playerData.knownVendors.map(v => v.location);
@@ -77,6 +82,10 @@ export class TradingComponent {
       const playerMatCount = this.playerData.knownMaterialQuantity.get(playerMatName);
       this.playerData.knownMaterialQuantity.set(material, playerMatCount + 1);
     }
+  }
+
+  sellToVendor(finishedItem: FinishedItem, material: string) {
+
   }
 
 }
