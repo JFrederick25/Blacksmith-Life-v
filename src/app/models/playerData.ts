@@ -1,5 +1,6 @@
 import { CraftedItem } from './craftedItem';
 import { FinishedItem } from './finishedItem';
+import { Material } from './material';
 import { Vendor } from './vendor';
 
 export class PlayerData {
@@ -10,10 +11,13 @@ export class PlayerData {
   knownMaterialQuantity: Map<string, number>;
   knownShapes: string[];
   knownEnchantments: string[];
-
   knownTechniques: string[];
 
   knownVendors: Vendor[];
+
+  buyMaterialList: {vendor: Vendor, list: Material[]};
+  buyShapeList: {vendor: Vendor, list: string[]};
+  sellList: {materials: Material[], items: FinishedItem[]};
 
   constructor() {
     this.craftedItems = [];
