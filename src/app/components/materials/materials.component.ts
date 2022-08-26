@@ -34,7 +34,7 @@ export class MaterialsComponent {
   selectedShape: string = '';
   selectedEnch: string = '';
 
-  get disabled() {
+  get disabled(): boolean {
     const hasEnoughMaterial = this.selectedMat
       ? this.playerData.knownMaterialQuantity.get(this.selectedMat) <= 0
       : true;
