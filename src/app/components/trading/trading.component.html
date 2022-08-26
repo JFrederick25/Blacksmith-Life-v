@@ -4,26 +4,33 @@
   </div>
 
   <div style="margin: 3vh 1vw 0 1vw; width: 10vw;">
-    <div class="option" style="font-size: 20px; background-color: lightgray;" (click)="trade()">Trade</div>
-    <div style="border: 1px solid black; border-radius: 5px; padding: 2px; padding-bottom: 0;">
-      <div style="border-bottom: 1px solid black;"> Sell List: </div>
-      <div *ngFor="let sellItem of sellList | keyvalue; let i = index">
-        {{i + 1}}: {{sellItem.key}} (qty: {{sellItem.value}})
+    <div class="option" style="font-size: 20px; background-color: lightgray;">
+      Trade
+    </div>
+    <div  *ngIf="sellList.length > 0" 
+      style="border: 1px solid black; border-radius: 5px; padding: 2px; padding-bottom: 0;"
+    >
+      <div style="border-bottom: 1px solid black;">Sell List:</div>
+      <div *ngFor="let entry of sellList">
+        {{ entry.name }} qty: {{ entry.count }}
       </div>
-      <div *ngIf="totalSellCost > 0"> Total Cost: {{totalSellCost}} </div>
+      <div *ngIf="totalSellCost > 0" >Total Cost: {{ totalSellCost }}</div>
     </div>
-    <div style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; padding-bottom: 0;">
-      <div style="border-bottom: 1px solid black;"> Buy List: </div>
-      <div *ngFor="let buyItem of buyList | keyvalue; let i = index">
-        {{i + 1}}: {{buyItem.key}} (qty: {{buyItem.value}})
+    <div  *ngIf="buyList.length > 0" 
+      style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; padding-bottom: 0;"
+    >
+      <div style="border-bottom: 1px solid black;">Buy List:</div>
+      <div *ngFor="let entry of buyList">
+        {{ entry.name }} qty: {{ entry.count }}
       </div>
-      <div *ngIf="totalBuyCost > 0"> Total Cost: {{totalBuyCost}} </div>
+      <div *ngIf="totalBuyCost > 0" >Total Cost: {{ totalBuyCost }}</div>
     </div>
-    <div>Haggle opportunity: 0%</div>
-    <div style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; font-size: 20px; font-weight: bold;">
-      Final Cost: {{finalTotal}}
+    <div>Haggle Chance: 0%</div>
+    <div
+      style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; font-size: 20px; font-weight: bold;"
+    >
+      Final Cost: {{ totalSellCost - totalBuyCost }}
     </div>
-    
   </div>
 
   <div class="viewport" style="width: 33vw;">

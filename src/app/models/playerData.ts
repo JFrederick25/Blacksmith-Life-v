@@ -15,10 +15,6 @@ export class PlayerData {
 
   knownVendors: Vendor[];
 
-  buyMaterialList: {vendor: Vendor, list: Material[]};
-  buyShapeList: {vendor: Vendor, list: string[]};
-  sellList: {materials: Material[], items: FinishedItem[]};
-
   constructor() {
     this.craftedItems = [];
     this.finishedItems = [];
@@ -34,10 +30,6 @@ export class PlayerData {
     this.knownEnchantments = ['magic'];
     this.knownTechniques = ['improve', 'enhance'];
     this.knownVendors = this.getInitialVendors();
-
-    this.buyMaterialList = {vendor: null, list: []};
-    this.buyShapeList = {vendor: null, list: []};
-    this.sellList = {items: [], materials: []};
   }
 
   getInitialVendors(): Vendor[] {

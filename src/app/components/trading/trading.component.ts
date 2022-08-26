@@ -15,35 +15,23 @@ export class TradingComponent {
 
   selectedLocation: string = null;
 
-  get sellList(): [string, number][] {
-    return this.playerData.sellList.materials.map((m) => [m.name, m.count]);
-  }
-
-  get buyList(): [string, number][] {
-    return this.playerData.buyMaterialList.list.map((m) => [m.name, m.count]);
-  }
+  sellList: {name: string, count: number, value: number, type: string}[] = [];
+  buyList: {name: string, count: number, value: number, type: string}[] = [];
 
   get totalSellCost(): number {
-    let sellAmount = 0;
-    for (const material of this.playerData.sellList.materials) {
-      sellAmount += material.count * lookupMaterialValue(material.name);
+    let totalCost = 0;
+    for(const entry of this.sellList) {
+      totalCost += entry.count * entry.value;
     }
-    return sellAmount;
+    return totalCost;
   }
 
   get totalBuyCost(): number {
-    let buyAmount = 0;
-    if (this.selectedVendor) {
-      for (const material of this.playerData.buyMaterialList.list) {
-        buyAmount +=
-          material.count * this.selectedVendor.material_cost.get(material.name);
-      }
+    let totalCost = 0;
+    for(const entry of this.buyList) {
+      totalCost += entry.count * entry.value;
     }
-    return buyAmount;
-  }
-
-  get finalTotal(): number {
-    return this.totalSellCost - this.totalBuyCost;
+    return totalCost;
   }
 
   getLocations(): string[] {
@@ -102,35 +90,37 @@ export class TradingComponent {
     return vendor.shape_cost.get(shape);
   }
 
-  buyMaterialFromVendor(material: string) {
-    const matCount = this.selectedVendor.material_count.get(material);
-    if (matCount > 0) {
-      this.selectedVendor.material_count.set(material, matCount - 1);
-
-      if (
-        this.playerData.buyMaterialList.list.some((m) => m.name === material)
-      ) {
-        this.playerData.buyMaterialList.list.find((m) => m.name === material)
-          .count++;
-      } else {
-        this.playerData.buyMaterialList.list.push({ name: material, count: 1 });
-      }
-    }
-  }
-
   sellMaterialToVendor(material: string) {
-    const matCount = this.getPlayerMatCount(material);
-    if (matCount > 0) {
-      this.playerData.knownMaterialQuantity.set(material, matCount - 1);
+    const pmQty = this.playerData.knownMaterialQuantity.get(material);
+    if (pmQty <= 0) {
+      return;
+    }
 
-      if (this.playerData.sellList.materials.some((m) => m.name === material)) {
-        this.playerData.sellList.materials.find((m) => m.name === material)
-          .count++;
-      } else {
-        this.playerData.sellList.materials.push({ name: material, count: 1 });
+    const sellMat = this.sellList.find(l => l.name === material);
+    if (!sellMat) {
+      this.sellList.push({name: material, count: 1, value: lookupMaterialValue(material), type: 'material'});
+    } else {
+      if (pmQty - sellMat.count > 0) {
+        sellMat.count++;
       }
     }
   }
 
-  trade() {}
+  buyMaterialFromVendor(material: string) {
+    if (this.selectedVendor) {
+      const vQty = this.selectedVendor.material_count.get(material);
+      if (vQty <= 0) {
+        return;
+      }
+
+      const buyMat = this.buyList.find(l => l.name === material);
+      if (!buyMat) {
+        this.buyList.push({name: material, count: 1, value: this.selectedVendor.material_cost.get(material), type: 'material'});
+      } else {
+        if (vQty - buyMat.count > 0) {
+          buyMat.count++;
+        }
+      }
+    }
+  }
 }
