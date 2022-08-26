@@ -1,6 +1,5 @@
 import { CraftedItem } from './craftedItem';
 import { FinishedItem } from './finishedItem';
-import { Material } from './material';
 import { Vendor } from './vendor';
 
 export class PlayerData {
