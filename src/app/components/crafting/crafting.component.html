@@ -61,7 +61,7 @@
         *ngFor="let fItem of playerData.finishedItems; let i = index"
         style="margin: 10px 0 0 4px;"
       >
-        {{ i + 1 }}: {{ fItem.name }} Value: {{ fItem.value }}
+        {{ i + 1 }}: {{ fItem.name }} | {{ fItem.value }}c |
       </div>
     </div>
   </div>
@@ -94,7 +94,9 @@
       >
         {{ i + 1 }}: {{ formatDescription(item) }}
       </div>
-      <div class="value">{{getItemValue(item)}}c x{{itemEnhanceFactor(item)}} </div>
+      <div class="value">
+        {{ getItemValue(item) }}c x{{ itemEnhanceFactor(item) }}
+      </div>
 
       <ng-container
         *ngIf="selectedMenu === 'Improvement'"

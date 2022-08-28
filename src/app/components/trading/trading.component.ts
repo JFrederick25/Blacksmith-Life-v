@@ -82,6 +82,10 @@ export class TradingComponent {
     return this.playerData.knownMaterialQuantity.get(mat);
   }
 
+  getMaterialValue(mat: string): number {
+    return lookupMaterialValue(mat);
+  }
+
   get vendorList(): Vendor[] {
     return this.playerData.knownVendors.filter(
       (v) => v.location === this.selectedLocation
