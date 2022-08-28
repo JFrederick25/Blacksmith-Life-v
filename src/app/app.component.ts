@@ -7,7 +7,7 @@ import { PlayerData } from './models/playerData';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  selectedTab: string = 'Trading';
+  selectedTab: string = 'Crafting';
   playerData: PlayerData = new PlayerData();
 
   constructor() {
@@ -17,7 +17,8 @@ export class AppComponent {
       enchantment: null,
       improveScore: 0,
       enhanceScore: 0,
-      status: ''
+      status: '',
+      value: 15
     });
   }
 

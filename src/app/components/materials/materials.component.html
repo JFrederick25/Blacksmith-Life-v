@@ -8,7 +8,7 @@
       >
         Select Material
       </div>
-      <div style="line-height: 6vh; font-size:18px;">: {{ selectedMat }}</div>
+      <div *ngIf="selectedMat" style="line-height: 6vh; font-size:18px;">: {{ selectedMat }} {{selectedMatValue}}c</div>
     </div>
 
     <div style="display: flex;">
@@ -19,7 +19,7 @@
       >
         Select Shape
       </div>
-      <div style="line-height: 6vh; font-size:18px;">: {{ selectedShape }}</div>
+      <div *ngIf="selectedShape" style="line-height: 6vh; font-size:18px;">: {{ selectedShape }} {{selectedShapeValue}}c</div>
     </div>
 
     <div style="display: flex;">
@@ -30,9 +30,12 @@
       >
         Select Enchantment
       </div>
-      <div style="line-height: 6vh; font-size:18px;">: {{ selectedEnch }}</div>
+      <div *ngIf="selectedEnch" style="line-height: 6vh; font-size:18px;">: {{ selectedEnch }} {{selectedEnchValue}}c </div>
     </div>
 
+    <div *ngIf="!disabled" style="padding: 12px 20px; font-size: 26px; text-align: center; border-top: 1px dashed gray;">
+      "{{formatDescription()}}" {{buildItemValue}}c
+    </div>
     <div style="display: flex;">
       <div
         class="option craft"

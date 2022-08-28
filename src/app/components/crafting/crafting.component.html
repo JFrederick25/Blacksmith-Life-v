@@ -90,10 +90,12 @@
       style="display: flex;"
     >
       <div
-        style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+        style="padding: 10px 4px; height: 20px; width: 12vw; line-height: 20px; margin: 10px 0;"
       >
         {{ i + 1 }}: {{ formatDescription(item) }}
       </div>
+      <div class="value">{{getItemValue(item)}}c x{{itemEnhanceFactor(item)}} </div>
+
       <ng-container
         *ngIf="selectedMenu === 'Improvement'"
         [ngTemplateOutlet]="improve"
@@ -115,7 +117,7 @@
         style="margin: 10px 0 10px 10px; width: 100px; font-size: 16px;"
         (click)="reset(item)"
       >
-        Reset
+        Reset/break
       </div>
 
       <div
@@ -132,13 +134,13 @@
 <ng-template #improve let-item="item">
   <div
     class="option"
-    style="margin: 10px 0; width: 100px; font-size: 16px;"
+    style="margin: 10px 0; width: 4vw; font-size: 16px;"
     (click)="improveItem(item)"
   >
     Improve
   </div>
   <div
-    style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+    style="padding: 10px 4px; height: 20px; width: 20vw; line-height: 20px; margin: 10px 0;"
   >
     10% Break Chance
   </div>
@@ -147,13 +149,13 @@
 <ng-template #enhance let-item="item">
   <div
     class="option"
-    style="margin: 10px 0; width: 100px; font-size: 16px;"
+    style="margin: 10px 0; width: 4vw; font-size: 16px;"
     (click)="enhanceItem(item)"
   >
     Enhance
   </div>
   <div
-    style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+    style="padding: 10px 4px; height: 20px; width: 20vw; line-height: 20px; margin: 10px 0;"
   >
     20% Failure Chance
   </div>
@@ -162,13 +164,13 @@
 <ng-template #recovery let-item="item">
   <div
     class="option"
-    style="margin: 10px 0; width: 100px; font-size: 16px;"
+    style="margin: 10px 0; width: 4vw; font-size: 16px;"
     (click)="recoverItem(item)"
   >
     Recovery
   </div>
   <div
-    style="padding: 10px 4px; height: 20px; width: 350px; line-height: 20px; margin: 10px 0;"
+    style="padding: 10px 4px; height: 20px; width: 20vw; line-height: 20px; margin: 10px 0;"
   >
     30% Failure Chance
   </div>

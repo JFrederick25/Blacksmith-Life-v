@@ -5,4 +5,5 @@ export class CraftedItem {
   improveScore?: number;
   enhanceScore?: number;
   status: string;
+  value: number;
 }

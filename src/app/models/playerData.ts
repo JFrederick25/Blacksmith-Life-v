@@ -32,7 +32,7 @@ export class PlayerData {
   }
 
   getInitialVendors(): Vendor[] {
-    const ven_1: Vendor = {
+    const mark: Vendor = {
       name: 'Mark',
       location: 'Terrace Street',
       materials_List: ['stone', 'copper'],
@@ -48,7 +48,7 @@ export class PlayerData {
       shape_cost: new Map([['axe', 50]]),
     };
 
-    const ven_2: Vendor = {
+    const david: Vendor = {
       name: 'David',
       location: 'Town Square',
       materials_List: ['copper', 'silver', 'gold'],
@@ -66,6 +66,6 @@ export class PlayerData {
       shape_cost: new Map([['sword', 85]]),
     };
 
-    return [ven_1, ven_2];
+    return [mark, david];
   }
 }

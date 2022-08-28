@@ -1,7 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { CraftedItem } from '../../models/craftedItem';
+import { EnchantingWord } from '../../models/enchantingWord';
 import { Material } from '../../models/material';
 import { PlayerData } from '../../models/playerData';
+import { getEnchantingAdjective, getMaterialAdjective } from '../utility/formatter';
+import { lookupEnchValue, lookupMaterialValue, lookupShapeValue } from '../utility/lookup';
 
 @Component({
   selector: 'materials',
@@ -33,12 +36,56 @@ export class MaterialsComponent {
   selectedMat: string = '';
   selectedShape: string = '';
   selectedEnch: string = '';
+  
+  get selectedMatValue(): number {
+    return lookupMaterialValue(this.selectedMat);
+  }
 
+  get selectedShapeValue(): number {
+    return lookupShapeValue(this.selectedShape);
+  }
+
+  get selectedEnchValue(): number {
+    return lookupEnchValue(this.selectedEnch);
+  }
+
+  get buildItemValue(): number {
+    let val = 0;
+    if (this.selectedMat) {
+      val += this.selectedMatValue;
+    }
+    if (this.selectedShape) {
+      val += this.selectedShapeValue
+    }
+    if (this.selectedEnch) {
+      val += this.selectedEnchValue
+    }
+    return val;
+  }
+  
   get disabled(): boolean {
     const hasEnoughMaterial = this.selectedMat
       ? this.playerData.knownMaterialQuantity.get(this.selectedMat) <= 0
       : true;
     return !this.selectedMat || !this.selectedShape || hasEnoughMaterial;
+  }
+
+  formatDescription(): string {
+    const materialWord: string = getMaterialAdjective(this.selectedMat);
+    const shapeWord: string = this.selectedShape;
+    const enchantingWord: EnchantingWord = getEnchantingAdjective(
+      this.selectedEnch
+    );
+
+    let formattedWord = 'standard ' + materialWord + ' ' + shapeWord;
+
+    if (enchantingWord.pos) {
+      formattedWord = enchantingWord.adj + ' ' + formattedWord;
+    } else {
+      formattedWord = formattedWord + ' ' + enchantingWord.adj;
+    }
+
+    return formattedWord;
   }
 
   disabledMat(mat: Material) {
@@ -72,14 +119,29 @@ export class MaterialsComponent {
       return;
     }
 
+    if (val.name === this.selectedMat) {
+      this.selectedMat = null;
+      return;
+    }
+
     this.selectedMat = val.name;
   }
 
   clickedShape(val: string) {
+    if (val === this.selectedShape) {
+      this.selectedShape = null;
+      return;
+    }
+
     this.selectedShape = val;
   }
 
   clickedEnchantment(val: string) {
+    if (val === this.selectedEnch) {
+      this.selectedEnch = null;
+      return;
+    }
+
     this.selectedEnch = val;
   }
 
@@ -100,6 +162,7 @@ export class MaterialsComponent {
       improveScore: 0,
       enhanceScore: 0,
       status: '',
+      value: this.buildItemValue
     };
     this.playerData.craftedItems.push(this.craftedItem);
 

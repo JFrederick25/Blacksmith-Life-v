@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { __values } from 'tslib';
 import { CraftedItem } from '../../models/craftedItem';
 import { EnchantingWord } from '../../models/enchantingWord';
 import { FinishedItem } from '../../models/finishedItem';
@@ -8,6 +9,7 @@ import {
   getEnhanceWord,
   getMaterialAdjective,
 } from '../utility/formatter';
+import { lookupEnhanceBrokenFactor, lookupEnhancedValue, lookupImproveBrokenFactor, lookupImprovedValue, lookupTotalEnhancementFactor } from '../utility/lookup';
 
 @Component({
   selector: 'crafting',
@@ -18,6 +20,19 @@ export class CraftingComponent {
   @Input() playerData: PlayerData;
 
   selectedMenu: string = 'Improvement';
+
+  getItemValue(item: CraftedItem): number {
+    const improveFactor: number = lookupImprovedValue(item.improveScore);
+    const enhanceFactor: number = lookupEnhancedValue(item.enhanceScore);
+    const brokenEnhanceFactor: number = lookupEnhanceBrokenFactor(item);
+    const brokenImproveFactor: number = lookupImproveBrokenFactor(item);
+
+    return Math.max(0, Math.trunc((item.value + (improveFactor * brokenImproveFactor)) * (1 + enhanceFactor - brokenEnhanceFactor )));
+  }
+
+  itemEnhanceFactor(item: CraftedItem): number {
+    return Math.round(lookupTotalEnhancementFactor(item.enhanceScore) * 100) / 100;
+  }
 
   setBackgroundColor(value: string) {
     if (this.selectedMenu === value) {
@@ -62,7 +77,9 @@ export class CraftingComponent {
   }
 
   reset(item: CraftedItem) {
+    if (item.status === 'broken')
     item.status = '';
+    else item.status = 'broken'
   }
 
   improveItem(item: CraftedItem) {
@@ -103,14 +120,15 @@ export class CraftingComponent {
   finishItem(item: CraftedItem) {
     const finishedItem: FinishedItem = {
       name: this.formatDescription(item),
-      value: 2 + item.enhanceScore + item.improveScore,
+      value: this.getItemValue(item),
       craftedItem: {
         enchantment: item.enchantment,
         material: item.material,
         shape: item.shape,
         status: item.status,
         enhanceScore: item.enhanceScore,
-        improveScore: item.improveScore
+        improveScore: item.improveScore,
+        value: item.value
       },
     }
 
