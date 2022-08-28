@@ -13,7 +13,7 @@
         <span class="entry" (click)="removeEntryFromSellList(entry)">&times;</span> {{ entry.name }} qty: {{ entry.count }}
         
       </div>
-      <div *ngIf="totalSellCost > 0" style="border-top: 1px dashed gray;">Total Cost: {{ totalSellCost }}</div>
+      <div *ngIf="totalSellCost > 0" style="border-top: 1px dashed gray;">Total Cost: | {{ totalSellCost }}c |</div>
     </div>
     <div
       *ngIf="buyList.length > 0"
@@ -23,13 +23,13 @@
       <div *ngFor="let entry of buyList" style="padding: 4px 0;">
       <span class="entry" (click)="removeEntryFromBuyList(entry)">&times;</span> {{ entry.name }} <span *ngIf="entry.type==='shape'">(shape)</span>  qty: {{ entry.count }} 
       </div>
-      <div *ngIf="totalBuyCost > 0" style="border-top: 1px dashed gray;">Total Cost: {{ totalBuyCost }}</div>
+      <div *ngIf="totalBuyCost > 0" style="border-top: 1px dashed gray;">Total Cost: | {{ totalBuyCost }}c |</div>
     </div>
     <!-- <div *ngIf="sellList.length > 0 || buyList.length > 0">Haggle Chance: 0%</div> -->
     <div *ngIf="sellList.length > 0 || buyList.length > 0"
       style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; font-size: 20px; font-weight: bold;"
     >
-      <span *ngIf="totalSellCost - totalBuyCost > 0">Profit:</span> <span *ngIf="totalSellCost - totalBuyCost < 0">Cost:</span> {{ totalSellCost - totalBuyCost }}c
+      <span *ngIf="totalSellCost - totalBuyCost > 0">Profit:</span> <span *ngIf="totalSellCost - totalBuyCost < 0">Cost:</span> | {{ totalSellCost - totalBuyCost }}c |
     </div>
     <div class="option" style="font-size: 20px;" [ngClass]="{ disabled: disabled }" (click)="trade()">
       Trade
