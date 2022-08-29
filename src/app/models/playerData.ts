@@ -22,7 +22,7 @@ export class PlayerData {
     this.knownMaterialQuantity = new Map();
 
     for (const mat of this.knownMaterials) {
-      this.knownMaterialQuantity.set(mat, 1);
+      this.knownMaterialQuantity.set(mat, 3);
     }
 
     this.knownShapes = ['club', 'dagger'];

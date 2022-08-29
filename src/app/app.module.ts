@@ -7,8 +7,10 @@ import { GameOptionsComponent } from './components/game-options/game-options.com
 import { MaterialsComponent } from './components/materials/materials.component';
 import { CraftingComponent } from './components/crafting/crafting.component';
 import { TradingComponent } from './components/trading/trading.component';
+import { IdService } from './components/utility/id.service';
 
 @NgModule({
+  providers: [ IdService ],
   imports:      [ BrowserModule, FormsModule ],
   declarations: [ AppComponent, GameOptionsComponent, MaterialsComponent, CraftingComponent, TradingComponent ],
   bootstrap:    [ AppComponent ]

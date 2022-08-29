@@ -10,10 +10,14 @@
     >
       <div style="border-bottom: 1px solid black;">Sell List:</div>
       <div *ngFor="let entry of sellList" style="padding: 4px 0;">
-        <span class="entry" (click)="removeEntryFromSellList(entry)">&times;</span> {{ entry.name }} qty: {{ entry.count }}
-        
+        <span class="entry" (click)="removeEntryFromSellList(entry)"
+          >&times;</span
+        >
+        {{ entry.name }} qty: {{ entry.count }}
       </div>
-      <div *ngIf="totalSellCost > 0" style="border-top: 1px dashed gray;">Total Cost: | {{ totalSellCost }}c |</div>
+      <div *ngIf="totalSellCost > 0" style="border-top: 1px dashed gray;">
+        Total Cost: | {{ totalSellCost }}c |
+      </div>
     </div>
     <div
       *ngIf="buyList.length > 0"
@@ -21,17 +25,32 @@
     >
       <div style="border-bottom: 1px solid black;">Buy List:</div>
       <div *ngFor="let entry of buyList" style="padding: 4px 0;">
-      <span class="entry" (click)="removeEntryFromBuyList(entry)">&times;</span> {{ entry.name }} <span *ngIf="entry.type==='shape'">(shape)</span>  qty: {{ entry.count }} 
+        <span class="entry" (click)="removeEntryFromBuyList(entry)"
+          >&times;</span
+        >
+        {{ entry.name }}
+        <span *ngIf="entry.type === 'shape'">(shape)</span> qty:
+        {{ entry.count }}
       </div>
-      <div *ngIf="totalBuyCost > 0" style="border-top: 1px dashed gray;">Total Cost: | {{ totalBuyCost }}c |</div>
+      <div *ngIf="totalBuyCost > 0" style="border-top: 1px dashed gray;">
+        Total Cost: | {{ totalBuyCost }}c |
+      </div>
     </div>
     <!-- <div *ngIf="sellList.length > 0 || buyList.length > 0">Haggle Chance: 0%</div> -->
-    <div *ngIf="sellList.length > 0 || buyList.length > 0"
+    <div
+      *ngIf="sellList.length > 0 || buyList.length > 0"
       style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; font-size: 20px; font-weight: bold;"
     >
-      <span *ngIf="totalSellCost - totalBuyCost > 0">Profit:</span> <span *ngIf="totalSellCost - totalBuyCost < 0">Cost:</span> | {{ totalSellCost - totalBuyCost }}c |
+      <span *ngIf="totalSellCost - totalBuyCost > 0">Profit:</span>
+      <span *ngIf="totalSellCost - totalBuyCost < 0">Cost:</span> |
+      {{ totalSellCost - totalBuyCost }}c |
     </div>
-    <div class="option" style="font-size: 20px;" [ngClass]="{ disabled: disabled }" (click)="trade()">
+    <div
+      class="option"
+      style="font-size: 20px;"
+      [ngClass]="{ disabled: disabled }"
+      (click)="trade()"
+    >
       Trade
     </div>
     utility/vendorProvider.ts
@@ -142,9 +161,7 @@
       {{ mat }}
     </div>
     <div style="width: 10vw;">(qty: {{ getMatCount(mat, vendor) }})</div>
-    <div style="width: 10vw;">
-      | {{ getMatCost(mat, vendor) }}c |
-    </div>
+    <div style="width: 10vw;">| {{ getMatCost(mat, vendor) }}c |</div>
   </div>
 </ng-template>
 
@@ -162,29 +179,30 @@
       {{ shape }} (shape)
     </div>
     <div style="width: 10vw;"></div>
-    <div style="width: 10vw;">
-      | {{ getShapeCost(shape, vendor) }}c |
-    </div>
+    <div style="width: 10vw;">| {{ getShapeCost(shape, vendor) }}c |</div>
   </div>
 </ng-template>
 
 <!-- * Your Store Templates * !-->
 <ng-template #yourStore>
-  <div>
+  <div *ngIf="playerData.finishedItems.length > 0">
     <div
       style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
     >
-      <span style="margin-left: 10px;">Your Items For Sale</span>
+      <span style="margin-left: 10px;">Items</span>
     </div>
-    <div
-      *ngFor="let item of playerData.finishedItems; let i = index"
-      style="display: flex; margin: 5px;"
-      [style.background-color]="alternateColor(i)"
-    >
-      <div style="height: 24px; line-height: 24px; width: 15vw;">
-        {{ item.name }} | {{ item.value }}c |
+
+    <div style="overflow-y: auto; height: 15vh;">
+      <div
+        *ngFor="let item of playerData.finishedItems; let i = index"
+        style="display: flex; margin: 5px;"
+        [style.background-color]="alternateColor(i)"
+      >
+        <div style="height: 24px; line-height: 24px; width: 15vw;">
+          {{ item.name }} | {{ item.value }}c |
+        </div>
+        <div class="select" (click)="sellItemToVendor(item)">Sell</div>
       </div>
-      <div class="select" (click)="sellItemToVendor(item)">Sell</div>
     </div>
   </div>
 </ng-template>
@@ -194,20 +212,22 @@
     <div
       style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
     >
-      <span style="margin-left: 10px;">Your Materials</span>
+      <span style="margin-left: 10px;">Materials</span>
     </div>
 
     <div
       *ngFor="let mat of playerData.knownMaterials; let i = index"
-      style="display: flex; overflow-y: auto; margin: 5px;"
+      style="display: flex; margin: 5px;"
       [style.background-color]="alternateColor(i)"
     >
       <div
-        style="height: 24px; line-height: 24px; width: 5vw; padding-left: 5px;"
+        style="height: 24px; line-height: 26px; width: 5vw; padding-left: 5px;"
       >
         {{ mat }}
       </div>
-      <div style="width: 10vw;">(qty: {{ getPlayerMatCount(mat) }}) | {{getMaterialValue(mat)}}c | </div>
+      <div style="width: 10vw; line-height: 26px;">
+        (qty: {{ getPlayerMatCount(mat) }}) | {{ getMaterialValue(mat) }}c |
+      </div>
       <div class="select" (click)="sellMaterialToVendor(mat)">Sell</div>
     </div>
   </div>
@@ -218,7 +238,7 @@
     <div
       style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
     >
-      <span style="margin-left: 10px;">Known Shapes</span>
+      <span style="margin-left: 10px;">Shapes</span>
     </div>
     <div
       *ngFor="let shape of playerData.knownShapes; let i = index"

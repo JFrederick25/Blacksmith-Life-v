@@ -4,6 +4,7 @@ import { EnchantingWord } from '../../models/enchantingWord';
 import { Material } from '../../models/material';
 import { PlayerData } from '../../models/playerData';
 import { getEnchantingAdjective, getMaterialAdjective } from '../utility/formatter';
+import { IdService } from '../utility/id.service';
 import { lookupEnchValue, lookupMaterialValue, lookupShapeValue } from '../utility/lookup';
 
 @Component({
@@ -13,6 +14,8 @@ import { lookupEnchValue, lookupMaterialValue, lookupShapeValue } from '../utili
 })
 export class MaterialsComponent {
   @Input() playerData: PlayerData;
+
+  constructor(private idService: IdService) { }
 
   selectedMenu: string = 'Material';
 
@@ -156,6 +159,7 @@ export class MaterialsComponent {
     );
 
     this.craftedItem = {
+      id: this.idService.getID(),
       material: this.selectedMat,
       shape: this.selectedShape,
       enchantment: this.selectedEnch,

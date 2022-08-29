@@ -1,4 +1,5 @@
-import { Component, VERSION } from '@angular/core';
+import { Component } from '@angular/core';
+import { IdService } from './components/utility/id.service';
 import { PlayerData } from './models/playerData';
 
 @Component({
@@ -10,15 +11,16 @@ export class AppComponent {
   selectedTab: string = 'Crafting';
   playerData: PlayerData = new PlayerData();
 
-  constructor() {
+  constructor(private idService: IdService ) {
     this.playerData.craftedItems.push({
+      id: idService.getID(),
       shape: 'dagger',
       material: 'copper',
       enchantment: null,
       improveScore: 0,
       enhanceScore: 0,
       status: '',
-      value: 15
+      value: 15,
     });
   }
 

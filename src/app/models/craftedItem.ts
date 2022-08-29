@@ -1,4 +1,5 @@
 export class CraftedItem {
+  id: number;
   material: string;
   shape: string;
   enchantment: string;

@@ -5,6 +5,7 @@ import { Vendor } from '../../models/vendor';
 import { lookupMaterialValue } from '../utility/lookup';
 
 class Entry {
+  id: number;
   name: string;
   count: number;
   value: number;
@@ -129,10 +130,11 @@ export class TradingComponent {
   }
 
   sellItemToVendor(item: FinishedItem) {
-    const sellItem = this.sellList.find((sl) => sl.name === item.name);
+    const sellItem = this.sellList.find((sl) => sl.id === item.craftedItem.id);
 
     if (!sellItem) {
       this.sellList.push({
+        id: item.craftedItem.id,
         name: item.name,
         count: 1,
         value: item.value,
@@ -150,6 +152,7 @@ export class TradingComponent {
     const sellMat = this.sellList.find((l) => l.name === material);
     if (!sellMat) {
       this.sellList.push({
+        id: 0,
         name: material,
         count: 1,
         value: lookupMaterialValue(material),
@@ -172,6 +175,7 @@ export class TradingComponent {
       const buyMat = this.buyList.find((l) => l.name === material);
       if (!buyMat) {
         this.buyList.push({
+          id: 0,
           name: material,
           count: 1,
           value: this.selectedVendor.material_cost.get(material),
@@ -190,6 +194,7 @@ export class TradingComponent {
 
     if (!buyShape) {
       this.buyList.push({
+        id: 0,
         name: shape,
         count: 1,
         value: this.selectedVendor.shape_cost.get(shape),

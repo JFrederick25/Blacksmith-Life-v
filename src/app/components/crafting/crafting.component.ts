@@ -9,7 +9,13 @@ import {
   getEnhanceWord,
   getMaterialAdjective,
 } from '../utility/formatter';
-import { lookupEnhanceBrokenFactor, lookupEnhancedValue, lookupImproveBrokenFactor, lookupImprovedValue, lookupTotalEnhancementFactor } from '../utility/lookup';
+import {
+  lookupEnhanceBrokenFactor,
+  lookupEnhancedValue,
+  lookupImproveBrokenFactor,
+  lookupImprovedValue,
+  lookupTotalEnhancementFactor,
+} from '../utility/lookup';
 
 @Component({
   selector: 'crafting',
@@ -26,12 +32,23 @@ export class CraftingComponent {
     const enhanceFactor: number = lookupEnhancedValue(item.enhanceScore);
     const brokenEnhanceFactor: number = lookupEnhanceBrokenFactor(item);
     const brokenImproveFactor: number = lookupImproveBrokenFactor(item);
+    const brokenMin = 2;
+    const val =
+      Math.max(
+        0,
+        Math.trunc(
+          (item.value + improveFactor * brokenImproveFactor) *
+            (1 + enhanceFactor - brokenEnhanceFactor)
+        )
+      ) + (item.status === 'broken' ? brokenMin : 0);
 
-    return Math.max(0, Math.trunc((item.value + (improveFactor * brokenImproveFactor)) * (1 + enhanceFactor - brokenEnhanceFactor )));
+    return val;
   }
 
   itemEnhanceFactor(item: CraftedItem): number {
-    return Math.round(lookupTotalEnhancementFactor(item.enhanceScore) * 100) / 100;
+    return (
+      Math.round(lookupTotalEnhancementFactor(item.enhanceScore) * 100) / 100
+    );
   }
 
   setBackgroundColor(value: string) {
@@ -45,7 +62,7 @@ export class CraftingComponent {
   }
 
   knownTechnique(tech: string): boolean {
-    return this.playerData.knownTechniques.some(t => t === tech);
+    return this.playerData.knownTechniques.some((t) => t === tech);
   }
 
   formatDescription(item: CraftedItem): string {
@@ -77,9 +94,8 @@ export class CraftingComponent {
   }
 
   reset(item: CraftedItem) {
-    if (item.status === 'broken')
-    item.status = '';
-    else item.status = 'broken'
+    if (item.status === 'broken') item.status = '';
+    else item.status = 'broken';
   }
 
   improveItem(item: CraftedItem) {
@@ -87,10 +103,10 @@ export class CraftingComponent {
       return;
     }
 
-    const randScore = Math.trunc((Math.random() * 100) + 1);
+    const randScore = Math.trunc(Math.random() * 100 + 1);
 
     if (randScore < 10) {
-      item.status = "broken";
+      item.status = 'broken';
     } else {
       item.improveScore += 1;
       if (item.improveScore % 8 === 0) {
@@ -104,7 +120,7 @@ export class CraftingComponent {
       return;
     }
 
-    const randScore = Math.trunc((Math.random() * 100) + 1);
+    const randScore = Math.trunc(Math.random() * 100 + 1);
 
     if (randScore < 20) {
       item.enhanceScore -= 1;
@@ -113,28 +129,26 @@ export class CraftingComponent {
     }
   }
 
-  recoverItem(item: CraftedItem) {
-    
-  }
+  recoverItem(item: CraftedItem) {}
 
   finishItem(item: CraftedItem) {
     const finishedItem: FinishedItem = {
       name: this.formatDescription(item),
       value: this.getItemValue(item),
       craftedItem: {
+        id: item.id,
         enchantment: item.enchantment,
         material: item.material,
         shape: item.shape,
         status: item.status,
         enhanceScore: item.enhanceScore,
         improveScore: item.improveScore,
-        value: item.value
+        value: item.value,
       },
-    }
+    };
 
     this.playerData.finishedItems.push(finishedItem);
     const ci = this.playerData.craftedItems.indexOf(item);
     this.playerData.craftedItems.splice(ci, 1);
   }
-
 }
