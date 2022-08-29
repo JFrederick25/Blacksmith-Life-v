@@ -10,4 +10,6 @@ export class Vendor {
 
   shape_list: string[];
   shape_cost:Map<string, number>;
+
+  vendor_associate_list?: string[];
 }

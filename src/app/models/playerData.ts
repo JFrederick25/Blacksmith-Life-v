@@ -46,6 +46,7 @@ export class PlayerData {
       ]),
       shape_list: ['axe'],
       shape_cost: new Map([['axe', 50]]),
+      vendor_associate_list: ['Steve', 'John']
     };
 
     const david: Vendor = {
@@ -64,6 +65,7 @@ export class PlayerData {
       ]),
       shape_list: ['sword'],
       shape_cost: new Map([['sword', 85]]),
+      vendor_associate_list: ['Steve', 'Terry']
     };
 
     return [mark, david];

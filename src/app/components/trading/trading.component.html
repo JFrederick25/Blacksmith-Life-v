@@ -8,7 +8,9 @@
       *ngIf="sellList.length > 0"
       style="border: 1px solid black; border-radius: 5px; padding: 2px; padding-bottom: 0;"
     >
-      <div style="border-bottom: 1px solid black;">Sell List:</div>
+      <div style="border-bottom: 1px solid black; background-color: lightgray;">
+        Sell List:
+      </div>
       <div *ngFor="let entry of sellList" style="padding: 4px 0;">
         <span class="entry" (click)="removeEntryFromSellList(entry)"
           >&times;</span
@@ -23,7 +25,9 @@
       *ngIf="buyList.length > 0"
       style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; padding-bottom: 0;"
     >
-      <div style="border-bottom: 1px solid black;">Buy List:</div>
+      <div style="border-bottom: 1px solid black; background-color:lightgray;">
+        Buy List:
+      </div>
       <div *ngFor="let entry of buyList" style="padding: 4px 0;">
         <span class="entry" (click)="removeEntryFromBuyList(entry)"
           >&times;</span
@@ -115,24 +119,20 @@
     </div>
   </div>
   <div
-    style="margin-top: 15px; font-size: 26px; text-align: center; width: 33vw; border-bottom: 1px solid black;"
+    style="margin-top: 15px; font-size: 26px; text-align: center; width: 33vw;"
   >
     {{ selectedVendor.name }}
   </div>
-  <div>
-    {{ selectedVendor.name }} is a basic vendor with a local reputation and
-    purveyor of modest materials
-  </div>
   <div
     style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
-  >
-    <div style="display: flex;">
-      <div style="margin-left: 3.4vw; width: 9.6vw;"></div>
-      <div style="width: 9.6vw; font-size: 16px; line-height: 26px;">Count</div>
-      <div style="width: 10vw;  font-size: 16px; line-height: 26px;">Cost</div>
-    </div>
+  ></div>
+  <div *ngFor="let ascVendor of selectedVendor.vendor_associate_list">
+    {{ ascVendor }}
   </div>
 
+  <div
+    style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
+  ></div>
   <ng-container
     [ngTemplateOutlet]="material"
     [ngTemplateOutletContext]="{ vendor: selectedVendor }"
