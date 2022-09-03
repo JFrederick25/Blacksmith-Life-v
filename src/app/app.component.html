@@ -1,5 +1,10 @@
-<div style="display:flex; padding-left:200px; padding-bottom: 20px;">
+<div class="title">
   <div style="font-size: 36px; font-weight: bold;">Blacksmith Life V</div>
+  <div class="info">
+    <div style="margin: 6px 10px; font-size: 26px; display: flex;">
+      Money: | {{ playerData.money }}c |
+    </div>
+  </div>
 </div>
 
 <div>
@@ -60,8 +65,6 @@
     <div *ngIf="selectedTab === 'Training'">
       Training: in crafting techniques and styles
     </div>
-    <div *ngIf="selectedTab === 'Enchanting'">
-      Enchanting
-    </div>
+    <div *ngIf="selectedTab === 'Enchanting'">Enchanting</div>
   </div>
 </div>

@@ -15,3 +15,21 @@ button {
 button:hover {
   background-color: rgb(236, 236, 236);
 }
+
+.title {
+  display:flex;
+  position: relative;
+  padding-left:200px;
+  padding-bottom: 20px;
+  width: 65vw;
+}
+
+.info {
+  position: absolute;
+  right: 10vw;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 30vw;
+  height: 4.5vh;
+  display: flex;
+}

@@ -21,7 +21,7 @@ export class TradingComponent {
   @Input() playerData: PlayerData;
 
   get disabled(): boolean {
-    return this.sellList.length === 0 && this.buyList.length === 0;
+    return (this.sellList.length === 0 && this.buyList.length === 0) || ((this.totalBuyCost - this.totalSellCost) > this.playerData.money) || !this.selectedVendor;
   }
 
   selectedLocation: string = null;
@@ -204,7 +204,7 @@ export class TradingComponent {
   }
 
   trade() {
-    if (!this.selectedVendor) {
+    if (!this.selectedVendor || this.disabled) {
       return;
     }
 
@@ -227,7 +227,6 @@ export class TradingComponent {
           const vQty = this.selectedVendor.material_count.get(vMat);
           this.selectedVendor.material_count.set(vMat, vQty + entry.count);
         }
-        // add value to player money
       }
       if (entry.type === 'item') {
         const fItem = this.playerData.finishedItems.find(
@@ -235,7 +234,6 @@ export class TradingComponent {
         );
         const index = this.playerData.finishedItems.indexOf(fItem);
         this.playerData.finishedItems.splice(index, 1);
-        // add value to player money
       }
     }
 
@@ -254,7 +252,6 @@ export class TradingComponent {
           const pQty = this.playerData.knownMaterialQuantity.get(entry.name);
           this.playerData.knownMaterialQuantity.set(pMat, pQty + entry.count);
         }
-        // subtract value from player money
       }
       if (entry.type === 'shape') {
         const index = this.selectedVendor.shape_list.indexOf(entry.name);
@@ -262,9 +259,10 @@ export class TradingComponent {
         this.selectedVendor.shape_cost.delete(entry.name);
 
         this.playerData.knownShapes.push(entry.name);
-        // subtract value from player money
       }
     }
+
+    this.playerData.money += this.totalSellCost - this.totalBuyCost;
 
     this.sellList = [];
     this.buyList = [];

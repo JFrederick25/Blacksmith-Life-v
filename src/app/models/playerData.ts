@@ -3,6 +3,7 @@ import { FinishedItem } from './finishedItem';
 import { Vendor } from './vendor';
 
 export class PlayerData {
+  money: number;
   craftedItems: CraftedItem[];
   finishedItems: FinishedItem[];
 
@@ -15,6 +16,7 @@ export class PlayerData {
   knownVendors: Vendor[];
 
   constructor() {
+    this.money = 20;
     this.craftedItems = [];
     this.finishedItems = [];
 
