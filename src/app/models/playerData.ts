@@ -29,7 +29,8 @@ export class PlayerData {
 
     this.knownShapes = ['club', 'dagger'];
     this.knownEnchantments = ['magic'];
-    this.knownTechniques = ['improve', 'enhance'];
+    this.knownTechniques = [];
+    // this.knownTechniques = ['improve', 'enhance'];
     this.knownVendors = this.getInitialVendors();
   }
 

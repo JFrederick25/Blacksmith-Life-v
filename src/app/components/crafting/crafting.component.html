@@ -76,7 +76,7 @@
       <div
         style="border-bottom: 1px solid black; padding: 12px 20px; width: 100%;"
       >
-        Crafting Options:
+        <!-- Crafting Options: -->
       </div>
     </div>
     <div
@@ -113,14 +113,17 @@
         [ngTemplateOutlet]="recovery"
         [ngTemplateOutletContext]="{ item: item }"
       ></ng-container>
+      <div *ngIf="selectedMenu === ''" style="width:24vw;"></div>
 
-      <div
+      <!-- <div
         class="option"
         style="margin: 10px 0 10px 10px; width: 100px; font-size: 16px;"
         (click)="reset(item)"
       >
         Reset/break
-      </div>
+      </div> -->
+
+      <div style="width: 100px;"></div>
 
       <div
         class="option"

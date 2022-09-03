@@ -8,7 +8,7 @@ import { PlayerData } from './models/playerData';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  selectedTab: string = 'Trading';
+  selectedTab: string = 'Game';
   playerData: PlayerData = new PlayerData();
 
   constructor(private idService: IdService) {

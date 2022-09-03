@@ -25,7 +25,7 @@ import {
 export class CraftingComponent {
   @Input() playerData: PlayerData;
 
-  selectedMenu: string = 'Improvement';
+  selectedMenu: string = '';
 
   getItemValue(item: CraftedItem): number {
     const improveFactor: number = lookupImprovedValue(item.improveScore);
@@ -58,7 +58,11 @@ export class CraftingComponent {
   }
 
   selectOption(value: string) {
-    this.selectedMenu = value;
+    if (this.selectedMenu === value) {
+      this.selectedMenu = '';
+    } else {
+      this.selectedMenu = value;
+    }
   }
 
   knownTechnique(tech: string): boolean {
