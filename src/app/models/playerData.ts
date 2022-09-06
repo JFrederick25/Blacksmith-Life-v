@@ -35,29 +35,27 @@ export class PlayerData {
   }
 }
 
+function getInitialVendors(): Vendor[] {
+  const mark: Vendor = {
+    name: 'Mark',
+    material_count: new Map([
+      ['stone', 8],
+      ['copper', 10],
+    ]),
+    shape_list: ['axe'],
+    associate_list: ['Steve', 'John'],
+  };
 
-  function getInitialVendors(): Vendor[] {
-    const mark: Vendor = {
-      name: 'Mark',
-      material_count: new Map([
-        ['stone', 8],
-        ['copper', 10],
-      ]),
-      shape_list: ['axe'],
-      vendor_associate_list: ['Steve', 'John'],
-    };
+  const david: Vendor = {
+    name: 'David',
+    material_count: new Map([
+      ['copper', 16],
+      ['silver', 8],
+      ['gold', 4],
+    ]),
+    shape_list: ['sword'],
+    associate_list: ['Steve', 'Terry'],
+  };
 
-    const david: Vendor = {
-      name: 'David',
-      material_count: new Map([
-        ['copper', 16],
-        ['silver', 8],
-        ['gold', 4],
-      ]),
-      shape_list: ['sword'],
-      vendor_associate_list: ['Steve', 'Terry'],
-    };
-
-    return [mark, david];
-  }
-
+  return [mark, david];
+}

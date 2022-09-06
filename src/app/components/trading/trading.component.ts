@@ -8,8 +8,9 @@ import {
   lookupVendorLocation,
   lookupVendorMaterialValue,
   lookupVendorShapeValue,
-  lookupAscossiatedVendors,
+  lookupAscossiateList,
 } from '../utility/vendorLookup';
+import { getNewVendor } from '../utility/vendorProvider';
 
 class Entry {
   id: number;
@@ -122,13 +123,16 @@ export class TradingComponent {
   }
 
   getAscVendors(): string[] {
-    const valVendors: string[] = lookupAscossiatedVendors(
-      this.selectedVendor.name
-    );
+    const valVendors: string[] = lookupAscossiateList(this.selectedVendor.name);
     const knownVendorNames: string[] = this.playerData.knownVendors.map(
       (x) => x.name
     );
     return valVendors.filter((v) => !knownVendorNames.includes(v));
+  }
+
+  getNewAscVendor(name: string) {
+    const newVendor = getNewVendor(name);
+    this.playerData.knownVendors.push(newVendor);
   }
 
   getAscVendorRegion(name: string): string {

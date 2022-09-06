@@ -48,8 +48,11 @@
       style="border: 1px solid black; border-radius: 5px; padding: 2px; margin-top: 4px; font-size: 20px; font-weight: bold;"
     >
       <span *ngIf="totalSellCost - totalBuyCost > 0">Profit:</span>
-      <span *ngIf="totalSellCost - totalBuyCost < 0">Cost:</span> |
-      {{ totalSellCost - totalBuyCost }}c |
+      <span *ngIf="totalSellCost - totalBuyCost < 0">Cost:</span>
+      <span *ngIf="totalSellCost - totalBuyCost !== 0">
+        | {{ totalSellCost - totalBuyCost }}c |
+      </span>
+      <span *ngIf="totalSellCost - totalBuyCost === 0"> Fair Trade </span>
     </div>
     <div
       class="option"
@@ -139,7 +142,11 @@
     *ngFor="let ascVendor of getAscVendors()"
     style="display: flex; margin: 5px; line-height: 3vh;"
   >
-    <div class="select" style="Width: 3vw; text-align: center;">
+    <div
+      class="select"
+      style="Width: 3vw; text-align: center;"
+      (click)="getNewAscVendor(ascVendor)"
+    >
       {{ ascVendor }}
     </div>
     <div style="margin-left: 5px;">

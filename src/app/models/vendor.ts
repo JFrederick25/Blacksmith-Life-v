@@ -7,5 +7,5 @@ export class Vendor {
 
   material_count: Map<string, number>;
   shape_list: string[];
-  vendor_associate_list?: string[];
+  associate_list?: string[];
 }

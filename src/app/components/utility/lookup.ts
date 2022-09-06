@@ -7,13 +7,13 @@ export function lookupMaterialValue(material: string): number {
     case 'stone':
       return 2;
     case 'copper':
-      return 5;
-    case 'tin':
       return 8;
+    case 'iron':
+      return 5;
     case 'silver':
-      return 15;
+      return 12;
     case 'gold':
-      return 40;
+      return 45;
   }
 }
 
@@ -27,6 +27,10 @@ export function lookupShapeValue(shape: string): number {
       return 15;
     case 'sword':
       return 25;
+    case 'pick':
+      return 14;
+    case 'spear':
+      return 28;
   }
 }
 

@@ -1,35 +1,39 @@
-import { Vendor } from "../../models/vendor"
+import { Vendor } from '../../models/vendor';
 
 export function getNewVendor(name: string): Vendor {
-  const newVendor: Vendor = {
-    name: name,
-    location: 'forest',
-    materials_List: ['tin', 'iron', 'fey wood'],
-    material_cost: new Map(),
-    material_count: new Map(),
+  switch (name) {
+    case 'Steve':
+      return getSteve();
+    case 'Terry':
+      return getTerry();
+    case 'John':
+      return getJohn();
+  }
+}
+
+export function getSteve(): Vendor {
+  return {
+    name: 'Steve',
+    material_count: new Map([['copper', 25]]),
     shape_list: [],
-    shape_cost: new Map()
+    associate_list: null,
   };
-  
-  return newVendor;
 }
 
-function getVendorMaterials(name: string) {
-
+export function getTerry(): Vendor {
+  return {
+    name: 'Terry',
+    material_count: new Map([['stone', 25]]),
+    shape_list: ['spear'],
+    associate_list: null,
+  };
 }
 
-function getVendorMaterialCost(name: string) {
-
-}
-
-function getVendorMaterialCount(name: string) {
-
-}
-
-function getVendorShapes(name: string) {
-
-}
-
-function getVendorShapeCost(name: string) {
-  
+export function getJohn(): Vendor {
+  return {
+    name: 'John',
+    material_count: new Map([['iron', 25]]),
+    shape_list: ['pick'],
+    associate_list: null,
+  };
 }
