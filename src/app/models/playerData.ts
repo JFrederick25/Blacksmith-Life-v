@@ -42,6 +42,7 @@ export class PlayerData {
         ['stone', 8],
         ['copper', 10],
       ]),
+      materials_List: [],
       shape_list: ['axe'],
       vendor_associate_list: ['Steve', 'John'],
     };
@@ -54,6 +55,7 @@ export class PlayerData {
         ['silver', 8],
         ['gold', 4],
       ]),
+      materials_List: [],
       shape_list: ['sword'],
       vendor_associate_list: ['Steve', 'Terry'],
     };

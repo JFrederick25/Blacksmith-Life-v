@@ -219,6 +219,10 @@ export class TradingComponent {
           pQty - entry.count
         );
 
+        const materials = [...this.selectedVendor.material_count.keys()];
+        console.log(materials);
+        console.log(this.selectedVendor.materials_List);
+
         const vMat = this.selectedVendor.materials_List.find(
           (ml) => ml === entry.name
         );

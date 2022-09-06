@@ -1,9 +1,4 @@
 export class Vendor {
-  constructor() {
-    this.material_count = new Map<string, number>();
-    this.shape_list = [];
-  }
-
   name: string;
   location: string;
 
