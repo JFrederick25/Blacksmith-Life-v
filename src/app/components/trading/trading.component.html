@@ -1,5 +1,4 @@
 <div style="display: flex;">
-
   <!-- Your Store Outlet -->
   <div class="viewport" style="width: 33vw;">
     <ng-container [ngTemplateOutlet]="store"></ng-container>
@@ -63,7 +62,6 @@
     utility/vendorProvider.ts
   </div>
 
-
   <!-- Vendor Outlet -->
   <div class="viewport" style="width: 33vw;">
     <ng-container
@@ -74,10 +72,7 @@
       *ngIf="selectedLocation"
       [ngTemplateOutlet]="vendor"
     ></ng-container>
-    <ng-container
-      *ngIf="!selectedRegion"
-      [ngTemplateOutlet]=""
-    ></ng-container>
+    <ng-container *ngIf="!selectedRegion" [ngTemplateOutlet]=""></ng-container>
   </div>
 </div>
 
@@ -106,9 +101,7 @@
 </ng-template>
 
 <ng-template #region>
-  <div>
-    Select Region
-  </div>
+  <div>Select Region</div>
 </ng-template>
 
 <!-- * Store * -->
@@ -141,8 +134,20 @@
   <div
     style="margin-top: 15px; font-size: 22px; width: 33vw; border-bottom: 1px solid black;"
   ></div>
-  <div *ngFor="let ascVendor of selectedVendor.vendor_associate_list">
-    {{ ascVendor }}
+  Unlock Other Traders:
+  <div
+    *ngFor="let ascVendor of getAscVendors()"
+    style="display: flex; margin: 5px; line-height: 3vh;"
+  >
+    <div class="select" style="Width: 3vw; text-align: center;">
+      {{ ascVendor }}
+    </div>
+    <div style="margin-left: 5px;">
+      Location: {{ getAscVendorLocation(ascVendor) }} ({{
+        getAscVendorRegion(ascVendor)
+      }}
+      region)
+    </div>
   </div>
 
   <div
@@ -165,7 +170,7 @@
 <ng-template #material let-vendor="vendor">
   Materials:
   <div
-    *ngFor="let mat of vendor.materials_List; let i = index"
+    *ngFor="let mat of vendorMaterialsList; let i = index"
     [style.background-color]="alternateColor(i)"
     style="display: flex; margin: 5px;"
   >

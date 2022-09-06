@@ -3,7 +3,13 @@ import { FinishedItem } from '../../models/finishedItem';
 import { PlayerData } from '../../models/playerData';
 import { Vendor } from '../../models/vendor';
 import { lookupMaterialValue } from '../utility/lookup';
-import { lookupVendorMaterialValue, lookupVendorShapeValue } from '../utility/vendorLookup';
+import {
+  lookupVendorRegion,
+  lookupVendorLocation,
+  lookupVendorMaterialValue,
+  lookupVendorShapeValue,
+  lookupAscossiatedVendors,
+} from '../utility/vendorLookup';
 
 class Entry {
   id: number;
@@ -22,7 +28,11 @@ export class TradingComponent {
   @Input() playerData: PlayerData;
 
   get disabled(): boolean {
-    return (this.sellList.length === 0 && this.buyList.length === 0) || ((this.totalBuyCost - this.totalSellCost) > this.playerData.money) || !this.selectedVendor;
+    return (
+      (this.sellList.length === 0 && this.buyList.length === 0) ||
+      this.totalBuyCost - this.totalSellCost > this.playerData.money ||
+      !this.selectedVendor
+    );
   }
 
   selectedLocation: string = null;
@@ -48,7 +58,9 @@ export class TradingComponent {
   }
 
   getLocations(): string[] {
-    return this.playerData.knownVendors.map((v) => v.location);
+    return this.playerData.knownVendors.map((v) =>
+      lookupVendorLocation(v.name)
+    );
   }
 
   selectLocation(loc: string) {
@@ -91,14 +103,36 @@ export class TradingComponent {
 
   get vendorList(): Vendor[] {
     return this.playerData.knownVendors.filter(
-      (v) => v.location === this.selectedLocation
+      (v) => lookupVendorLocation(v.name) === this.selectedLocation
     );
+  }
+
+  get vendorMaterialsList(): string[] {
+    return Array.from(this.selectedVendor.material_count.keys());
   }
 
   get selectedVendor(): Vendor {
     return this.playerData.knownVendors.filter(
-      (v) => v.location === this.selectedLocation
+      (v) => lookupVendorLocation(v.name) === this.selectedLocation
     )[0];
+  }
+
+  getAscVendorLocation(name: string): string {
+    return lookupVendorLocation(name);
+  }
+
+  getAscVendors(): string[] {
+    const valVendors: string[] = lookupAscossiatedVendors(
+      this.selectedVendor.name
+    );
+    const knownVendorNames: string[] = this.playerData.knownVendors.map(
+      (x) => x.name
+    );
+    return valVendors.filter((v) => !knownVendorNames.includes(v));
+  }
+
+  getAscVendorRegion(name: string): string {
+    return lookupVendorRegion(name);
   }
 
   getMatCount(material: string, vendor: Vendor): number {
@@ -106,7 +140,6 @@ export class TradingComponent {
   }
 
   getMatCost(material: string, vendor: Vendor): number {
-
     return lookupVendorMaterialValue(material);
   }
 
@@ -219,13 +252,10 @@ export class TradingComponent {
           pQty - entry.count
         );
 
-        const materials = [...this.selectedVendor.material_count.keys()];
+        const materials = Array.from(this.selectedVendor.material_count.keys());
         console.log(materials);
-        console.log(this.selectedVendor.materials_List);
 
-        const vMat = this.selectedVendor.materials_List.find(
-          (ml) => ml === entry.name
-        );
+        const vMat = materials.find((ml) => ml === entry.name);
         if (!vMat) {
           this.selectedVendor.material_count.set(entry.name, entry.count);
         } else {

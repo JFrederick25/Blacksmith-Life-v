@@ -15,9 +15,29 @@ export function lookupVendorShapeValue(shape: string): number {
   }
 }
 
-export function lookupRegionByLocation(location: string): string {
-  switch (location) {
-    case 'Town Square':
-    case 'Terrage Street': return 'west';
+export function lookupVendorLocation(name: string): string {
+  switch(name) {
+    case 'David': return 'Market Street';
+    case 'Mark': return 'Town Center';
+    case 'Steve': return 'Noble Court';
+    case 'Terry': return 'Dock House';
+    case 'John': return 'Mine Outpost';
+  }
+}
+
+export function lookupVendorRegion(name: string): string {
+  switch (name) {
+    case 'David':
+    case 'Steve':
+    case 'Mark': return 'west';
+    case 'Terry': return 'south';
+    case 'John': return 'north';
+  }
+}
+
+export function lookupAscossiatedVendors(name: string): string[] {
+  switch(name) {
+    case 'David': return ['Steve', 'Terry'];
+    case 'Mark': return ['Steve', 'John'];
   }
 }

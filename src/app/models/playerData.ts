@@ -31,35 +31,33 @@ export class PlayerData {
     this.knownEnchantments = ['magic'];
     this.knownTechniques = [];
     // this.knownTechniques = ['improve', 'enhance'];
-    this.knownVendors = this.getInitialVendors();
+    this.knownVendors = getInitialVendors();
   }
+}
 
-  getInitialVendors(): Vendor[] {
+
+  function getInitialVendors(): Vendor[] {
     const mark: Vendor = {
       name: 'Mark',
-      location: 'Terrace Street',
       material_count: new Map([
         ['stone', 8],
         ['copper', 10],
       ]),
-      materials_List: [],
       shape_list: ['axe'],
       vendor_associate_list: ['Steve', 'John'],
     };
 
     const david: Vendor = {
       name: 'David',
-      location: 'Town Square',
       material_count: new Map([
         ['copper', 16],
         ['silver', 8],
         ['gold', 4],
       ]),
-      materials_List: [],
       shape_list: ['sword'],
       vendor_associate_list: ['Steve', 'Terry'],
     };
 
     return [mark, david];
   }
-}
+
