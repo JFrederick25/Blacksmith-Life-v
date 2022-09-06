@@ -18,3 +18,9 @@ Some of the fantastic enchanting sources
 5. dyonen's radiant disk (enchant by magic circle)
 6. scion's lamentation (enchant by holy sacrifice)
 
+Some trading actions to increase reputation
+1. buying
+2. selling
+3. haggling
+4. promoting
+

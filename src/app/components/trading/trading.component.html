@@ -1,8 +1,11 @@
 <div style="display: flex;">
+
+  <!-- Your Store Outlet -->
   <div class="viewport" style="width: 33vw;">
     <ng-container [ngTemplateOutlet]="store"></ng-container>
   </div>
 
+  <!-- Trading Panel -->
   <div style="margin: 3vh 1vw 0 1vw; width: 10vw;">
     <div
       *ngIf="sellList.length > 0"
@@ -60,6 +63,8 @@
     utility/vendorProvider.ts
   </div>
 
+
+  <!-- Vendor Outlet -->
   <div class="viewport" style="width: 33vw;">
     <ng-container
       *ngIf="!selectedLocation"
@@ -68,6 +73,10 @@
     <ng-container
       *ngIf="selectedLocation"
       [ngTemplateOutlet]="vendor"
+    ></ng-container>
+    <ng-container
+      *ngIf="!selectedRegion"
+      [ngTemplateOutlet]=""
     ></ng-container>
   </div>
 </div>
@@ -93,6 +102,12 @@
         </div>
       </div>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #region>
+  <div>
+    Select Region
   </div>
 </ng-template>
 

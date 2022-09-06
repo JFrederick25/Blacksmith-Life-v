@@ -3,6 +3,7 @@ import { FinishedItem } from '../../models/finishedItem';
 import { PlayerData } from '../../models/playerData';
 import { Vendor } from '../../models/vendor';
 import { lookupMaterialValue } from '../utility/lookup';
+import { lookupVendorMaterialValue, lookupVendorShapeValue } from '../utility/vendorLookup';
 
 class Entry {
   id: number;
@@ -25,6 +26,7 @@ export class TradingComponent {
   }
 
   selectedLocation: string = null;
+  selectedRegion: string = null;
 
   sellList: Entry[] = [];
   buyList: Entry[] = [];
@@ -104,11 +106,12 @@ export class TradingComponent {
   }
 
   getMatCost(material: string, vendor: Vendor): number {
-    return vendor.material_cost.get(material);
+
+    return lookupVendorMaterialValue(material);
   }
 
   getShapeCost(shape: string, vendor: Vendor): number {
-    return vendor.shape_cost.get(shape);
+    return lookupVendorShapeValue(shape);
   }
 
   removeEntryFromSellList(entry: Entry) {
@@ -178,7 +181,7 @@ export class TradingComponent {
           id: 0,
           name: material,
           count: 1,
-          value: this.selectedVendor.material_cost.get(material),
+          value: lookupVendorMaterialValue(material),
           type: 'material',
         });
       } else {
@@ -197,7 +200,7 @@ export class TradingComponent {
         id: 0,
         name: shape,
         count: 1,
-        value: this.selectedVendor.shape_cost.get(shape),
+        value: lookupVendorShapeValue(shape),
         type: 'shape',
       });
     }
@@ -220,9 +223,7 @@ export class TradingComponent {
           (ml) => ml === entry.name
         );
         if (!vMat) {
-          this.selectedVendor.materials_List.push(entry.name);
           this.selectedVendor.material_count.set(entry.name, entry.count);
-          this.selectedVendor.material_cost.set(entry.name, entry.value);
         } else {
           const vQty = this.selectedVendor.material_count.get(vMat);
           this.selectedVendor.material_count.set(vMat, vQty + entry.count);
@@ -256,7 +257,6 @@ export class TradingComponent {
       if (entry.type === 'shape') {
         const index = this.selectedVendor.shape_list.indexOf(entry.name);
         this.selectedVendor.shape_list.splice(index, 1);
-        this.selectedVendor.shape_cost.delete(entry.name);
 
         this.playerData.knownShapes.push(entry.name);
       }

@@ -1,15 +1,17 @@
-import { Material } from "./material";
-
 export class Vendor {
+  constructor() {
+    this.material_count = new Map<string, number>();
+    this.shape_list = [];
+  }
+
   name: string;
   location: string;
 
-  materials_List: string[];
-  material_cost: Map<string, number>;
+  get materials_List(): string[] {
+    return [...this.material_count.keys()] || [];
+  }
+
   material_count: Map<string, number>;
-
   shape_list: string[];
-  shape_cost:Map<string, number>;
-
   vendor_associate_list?: string[];
 }
